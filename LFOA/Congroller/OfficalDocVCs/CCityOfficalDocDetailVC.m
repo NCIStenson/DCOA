@@ -19,6 +19,7 @@
 #import "CCityBackToLeftView.h"
 #import <TSMessage.h>
 #import "XuAlertCon.h"
+#import "CCErrorNoManager.h"
 
 @interface CCityOfficalDocDetailVC ()<CCityOfficalDocDetailDelegate,CCityOffialPersonListDelegate>
 
@@ -157,22 +158,40 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
     
     NSMutableArray* btnsArr = [@[NWBtn,saveBtn,_sendBtn] mutableCopy];
     
-    if (huiqianBtn ) {  [btnsArr addObject:huiqianBtn]; }
+//    return;
+    if (huiqianBtn ) {
+        [btnsArr addObject:huiqianBtn];
+    }
     
-    [btnsArr mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:10 leadSpacing:10 tailSpacing:10];
-    
-    [btnsArr mas_makeConstraints:^(MASConstraintMaker *make) {
+    for (int i = 0; i < btnsArr.count; i ++) {
+        UIButton * btn = btnsArr[i];
         
-        make.top.equalTo(_footerView).with.offset(5.f);
+        float marginTop = 5;
+        float btnHeight = 35;
+        
+        float btnWidth = (self.view.frame.size.width - (btnsArr.count + 1) * 10) / btnsArr.count;
         
         if ([[CCitySystemVersionManager deviceStr] isEqualToString:@"iPhone X"]) {
-            
-            make.bottom.equalTo(_footerView).with.offset(-30.f);
-        } else {
-            
-            make.bottom.equalTo(_footerView).with.offset(-10.f);
+            marginTop = 10;
+            btnHeight = 39;
         }
-    }];
+        btn.frame = CGRectMake(10 + (btnWidth + 10) * i, marginTop, btnWidth, btnHeight);
+    }
+    
+//    [btnsArr mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:10 leadSpacing:10 tailSpacing:10];
+//
+//    [btnsArr mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.equalTo(_footerView).with.offset(5.f);
+//
+//        if ([[CCitySystemVersionManager deviceStr] isEqualToString:@"iPhone X"]) {
+//
+//            make.bottom.equalTo(_footerView).with.offset(-30.f);
+//        } else {
+//
+//            make.bottom.equalTo(_footerView).with.offset(-10.f);
+//        }
+//    }];
 }
 
 -(UIButton*)getBottomBtnWithTitle:(NSString*)title sel:(SEL)sel {
@@ -280,7 +299,7 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
     menuVC.contentMode = _conentMode;
     menuVC.ids = _docId;
     menuVC.view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.3f];
-    
+    menuVC.isread = _isread;
     menuVC.pushToNextVC = ^(UIViewController *viewController) {
         
         [self.navigationController pushViewController:viewController animated:YES];
@@ -732,7 +751,17 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
             
             if ([responseObject[@"status"] isEqualToString:@"failed"]) {
                 
-                [CCityAlterManager showSimpleTripsWithVC:self Str:@"数据获取失败" detail:nil];
+                
+                    CCErrorNoManager* errorManager = [CCErrorNoManager new];
+                    if (![errorManager requestSuccess:responseObject]) {
+                        
+                        [errorManager getErrorNum:responseObject WithVC:self WithAction:nil loginSuccess:^{
+                            
+                            [self configDataWithId:_docId];
+                        }];
+                        return;
+                    }
+                    
                 return;
             }
             

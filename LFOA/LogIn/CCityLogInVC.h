@@ -12,4 +12,6 @@
 
 @property(nonatomic, strong)NSDictionary* notificDic;
 
+@property(nonatomic, strong)void(^logInSuccess)(void);
+
 @end

@@ -35,7 +35,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -56,7 +55,7 @@
         _menuView = [self menuView];
         
         _menuView.frame = CGRectMake(self.view.bounds.size.width - 140.f, 64, 130, 0.f);
-    
+        
         _menuView.alpha = 0.f;
         [self.view addSubview:_menuView];
     }
@@ -68,9 +67,9 @@
         
         _menuView.alpha = 1.f;
         
-        if (_style == CCityOfficalMainSPStyle && _contentMode == 0) {
+        if ( _contentMode == 0) {
             
-            menuFrame.size.height = 200;
+            menuFrame.size.height = 150;
         } else {
             
             menuFrame.size.height = 100;
@@ -106,10 +105,10 @@
     [docListBtn addTarget:self action:@selector(menuBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [docListBtn setImage:[UIImage imageNamed:@"ccity_officalDetail_navMenu_list_20x20_"] forState:UIControlStateNormal];
     
-//    CCityOfficalDocNavMenuBtn* docTreeBtn = [CCityOfficalDocNavMenuBtn buttonWithType:UIButtonTypeCustom];
-//    docTreeBtn.tag = 1502;
-//    [docTreeBtn setImage:[UIImage imageNamed:@"ccity_officalDetail_navMenu_tree_20x20"] forState:UIControlStateNormal];
-//    [docTreeBtn addTarget:self action:@selector(menuBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    //    CCityOfficalDocNavMenuBtn* docTreeBtn = [CCityOfficalDocNavMenuBtn buttonWithType:UIButtonTypeCustom];
+    //    docTreeBtn.tag = 1502;
+    //    [docTreeBtn setImage:[UIImage imageNamed:@"ccity_officalDetail_navMenu_tree_20x20"] forState:UIControlStateNormal];
+    //    [docTreeBtn addTarget:self action:@selector(menuBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     CCityOfficalDocNavMenuBtn* docLogBtn = [CCityOfficalDocNavMenuBtn buttonWithType:UIButtonTypeCustom];
     docLogBtn.tag = 1503;
@@ -119,22 +118,22 @@
     if (_style == CCityOfficalMainSPStyle) {
         
         [docListBtn setTitle:@" 项目表单" forState:UIControlStateNormal];
-//        [docTreeBtn setTitle:@" 项目树" forState:UIControlStateNormal];
+        //        [docTreeBtn setTitle:@" 项目树" forState:UIControlStateNormal];
         [docLogBtn setTitle:@" 项目日志" forState:UIControlStateNormal];
     } else if (_style == CCityOfficalMainDocStyle) {
         
         [docListBtn setTitle:@" 公文表单" forState:UIControlStateNormal];
-//        [docTreeBtn setTitle:@" 公文树" forState:UIControlStateNormal];
+        //        [docTreeBtn setTitle:@" 公文树" forState:UIControlStateNormal];
         [docLogBtn setTitle:@" 公文日志" forState:UIControlStateNormal];
     }
     
     [menuView addSubview:docListBtn];
-//    [menuView addSubview:docTreeBtn];
+    //    [menuView addSubview:docTreeBtn];
     [menuView addSubview:docLogBtn];
     
     NSArray* viewsArr;
     
-    if (_style == CCityOfficalMainSPStyle && _contentMode == 0) {
+    if ( _contentMode == 0) {
         
         CCityOfficalDocNavMenuBtn* goBackBtn = [CCityOfficalDocNavMenuBtn buttonWithType:UIButtonTypeCustom];
         goBackBtn.tag = 1504;
@@ -143,11 +142,27 @@
         [goBackBtn setImage:[UIImage imageNamed:@"ccity_goback_20x20_"] forState:UIControlStateNormal];
         [menuView addSubview:goBackBtn];
         
+        //        viewsArr = @[goBackBtn, docListBtn, docTreeBtn, docLogBtn];
         viewsArr = @[goBackBtn, docListBtn, docLogBtn];
     } else {
         
+        //        viewsArr = @[docListBtn, docTreeBtn, docLogBtn];
         viewsArr = @[docListBtn, docLogBtn];
     }
+    
+    
+    if (!_isread) {
+        CCityOfficalDocNavMenuBtn* quhuiBtn = [CCityOfficalDocNavMenuBtn buttonWithType:UIButtonTypeCustom];
+        quhuiBtn.tag = 1505;
+        [quhuiBtn setTitle:@" 取回" forState:UIControlStateNormal];
+        [quhuiBtn addTarget:self action:@selector(menuBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [quhuiBtn setImage:[UIImage imageNamed:@"ccity_goback_20x20_"] forState:UIControlStateNormal];
+        [menuView addSubview:quhuiBtn];
+        
+        //        viewsArr = @[goBackBtn, docListBtn, docTreeBtn, docLogBtn];
+        viewsArr = @[quhuiBtn, docListBtn, docLogBtn];
+    }
+    
     
     [viewsArr mas_distributeViewsAlongAxis:MASAxisTypeVertical withFixedSpacing:0 leadSpacing:0 tailSpacing:0];
     
@@ -162,9 +177,9 @@
 
 // doc list
 - (void)menuBtnClicked:(CCityOfficalDocNavMenuBtn*)btn {
-   
+    
     CCityOfficalDetialMenuBaseVC* menuVC;
-   __block UIAlertController* alertVC;
+    __block UIAlertController* alertVC;
     __block CCityOfficalDetailMenuVC* blockSelf = self;
     
     NSDictionary* ids = @{
@@ -190,7 +205,7 @@
             
             alertVC = [UIAlertController alertControllerWithTitle:@"回退" message:nil preferredStyle:UIAlertControllerStyleAlert];
             [alertVC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-               
+                
                 textField.placeholder = @"回退意见";
             }];
             
@@ -203,6 +218,10 @@
                 [blockSelf goBackAction:alertVC];
             }]];
             
+            break;
+            
+        case 1505:
+            [self caseCallBack];
             break;
             
         default:
@@ -222,7 +241,7 @@
             [self presentViewController:alertVC animated:NO completion:nil];
         }
     }
-  
+    
 }
 
 -(void)goBackAction:(UIAlertController*)alertCon {
@@ -242,11 +261,9 @@
     [manager POST:@"service/form/RollBack.ashx" parameters:parmaeters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         [SVProgressHUD dismiss];
+        CCErrorNoManager* errorNoManager = [CCErrorNoManager new];
         
-        NSLog(@"%@",responseObject);
-        
-        if ([responseObject[@"status"] isEqual:@"success"]) {
-            
+        if ([errorNoManager requestSuccess:responseObject]) {
             [self dismissViewControllerAnimated:NO completion:nil];
             
             if (self.pushToRoot) {
@@ -254,8 +271,9 @@
             }
         } else {
             
-            [CCityAlterManager showSimpleTripsWithVC:self Str:@"回退失败" detail:nil];
+            [errorNoManager getErrorNum:responseObject WithVC:self WithAction:nil loginSuccess:nil];
         }
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
         [SVProgressHUD dismiss];
@@ -264,4 +282,43 @@
     }];
 }
 
+-(void)caseCallBack {
+    
+    [SVProgressHUD show];
+    
+    AFHTTPSessionManager* manager = [CCityJSONNetWorkManager sessionManager];
+    
+    NSDictionary* parmaeters = @{
+                                 @"token" :[CCitySingleton sharedInstance].token,
+                                 @"workId"  :_ids[@"workId"],
+                                 @"isread"  :[NSString stringWithFormat:@"%d",_isread],
+                                 };
+    
+    [manager POST:@"service/form/QuHui.ashx" parameters:parmaeters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        [SVProgressHUD dismiss];
+        CCErrorNoManager* errorNoManager = [CCErrorNoManager new];
+        
+        if ([errorNoManager requestSuccess:responseObject]) {
+            [self dismissViewControllerAnimated:NO completion:nil];
+            
+            if (self.pushToRoot) {
+                self.pushToRoot();
+            }
+        } else {
+            
+            [errorNoManager getErrorNum:responseObject WithVC:self WithAction:nil loginSuccess:nil];
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        [SVProgressHUD dismiss];
+        [CCityAlterManager showSimpleTripsWithVC:self Str:error.localizedDescription detail:nil];
+        NSLog(@"%@",error);
+    }];
+}
+
+
 @end
+
+

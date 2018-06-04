@@ -14,4 +14,8 @@
 
 +(void)showSimpleTripsWithVC:(UIViewController*)viewController Str:(NSString*)title detail:(NSString*)message;
 
+// hidde with tap
++(void)showAlertWithVC:(UIViewController*)VC Str:(NSString*)title detail:(NSString*)detial handle:(void(^)(UIAlertAction* action))handle;
+
++(void)showAlertWithVC:(UIViewController*)VC Str:(NSString*)title detail:(NSString*)detial okHandle:(void (^)(UIAlertAction *))handle;
 @end

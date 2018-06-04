@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		23DCE1A99B3BF9942D6D25DA /* libPods-NotficationService.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7DEEC7B9986799CF65945F /* libPods-NotficationService.a */; };
 		5409CCBF7E87CD57D2E4887D /* libPods-LFOA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A7DF90BFC902A8AD3BC301 /* libPods-LFOA.a */; };
+		9864EB6320C510D2006C281C /* CCErrorNoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9864EB6220C510D2006C281C /* CCErrorNoManager.m */; };
 		F1072A2F1F345EF1005E4CB0 /* CCityOfficalDocNavMenuBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = F1072A2E1F345EF1005E4CB0 /* CCityOfficalDocNavMenuBtn.m */; };
 		F1072A331F347223005E4CB0 /* ccity_officalDetail_navMenu_list_20x20_@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F1072A301F347223005E4CB0 /* ccity_officalDetail_navMenu_list_20x20_@3x.png */; };
 		F1072A341F347223005E4CB0 /* ccity_officalDetail_navMenu_list_20x20_@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F1072A311F347223005E4CB0 /* ccity_officalDetail_navMenu_list_20x20_@2x.png */; };
@@ -227,6 +228,8 @@
 		74881A20AA0A8B0BDC97F14D /* Pods-LFOA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LFOA.release.xcconfig"; path = "Pods/Target Support Files/Pods-LFOA/Pods-LFOA.release.xcconfig"; sourceTree = "<group>"; };
 		8DEEADDD8DF557D6B4BE0C4E /* Pods-NotificationService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.release.xcconfig"; path = "Pods/Target Support Files/Pods-NotificationService/Pods-NotificationService.release.xcconfig"; sourceTree = "<group>"; };
 		984F93B820BE7C2800DD0027 /* LFOA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LFOA.entitlements; sourceTree = "<group>"; };
+		9864EB6220C510D2006C281C /* CCErrorNoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCErrorNoManager.m; sourceTree = "<group>"; };
+		9864EB6420C510ED006C281C /* CCErrorNoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCErrorNoManager.h; sourceTree = "<group>"; };
 		A219BA9C17E512E01CE52B62 /* Pods-NotificationService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NotificationService/Pods-NotificationService.debug.xcconfig"; sourceTree = "<group>"; };
 		D3EA8E09DFDEA012EA839BC2 /* libPods-NotificationService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationService.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1072A2D1F345EF1005E4CB0 /* CCityOfficalDocNavMenuBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCityOfficalDocNavMenuBtn.h; sourceTree = "<group>"; };
@@ -1021,6 +1024,8 @@
 		F1B4F1811F2B2A1E00AB8823 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				9864EB6420C510ED006C281C /* CCErrorNoManager.h */,
+				9864EB6220C510D2006C281C /* CCErrorNoManager.m */,
 				F11595C31F2CA5EB00519E21 /* CCitySingleton.h */,
 				F11595C41F2CA5EB00519E21 /* CCitySingleton.m */,
 				F1B4F1911F2B80A100AB8823 /* CCityFileManager.h */,
@@ -1538,6 +1543,7 @@
 				F1401E111F6F511300D16776 /* CCityNavBar.m in Sources */,
 				F1B4F1641F2B29D800AB8823 /* main.m in Sources */,
 				F14F7B2B1F3ED1D6000C736A /* CCityOfficalDetailPsrsonListVC.m in Sources */,
+				9864EB6320C510D2006C281C /* CCErrorNoManager.m in Sources */,
 				F1848B241F387CE600EC927D /* CCityOfficalDetailMenuVC.m in Sources */,
 				F13F07721F68C028001C5F21 /* CCityMainDocSearchCell.m in Sources */,
 				F18B48791F69354900B709CB /* CCityBaseMainVCs.m in Sources */,

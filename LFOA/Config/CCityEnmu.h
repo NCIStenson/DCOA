@@ -34,4 +34,17 @@ typedef NS_ENUM(NSUInteger, CCityOfficalMainStyle) {
     CCityOfficalMainDocStyle,
     CCityOfficalMainSPStyle,
 };
+/*
+ * 服务器返回代码
+ */
+typedef NS_ENUM(NSUInteger, CCNetWorkStateErrorCode) {
+    
+    CCNetWorkStateTokenOutOfData     = 1,     // 用户不存在或TOKEN过期
+    CCNetWorkStateListNotConfig      = 100,   // 表单配置文件不存在
+    CCNetWorkStateListNotExist       = 101,   // 表单不存在
+    CCNetWorkStateLowJurisdiction    = 200,   // 没有权限
+    CCNetWorkStateInvalidParameter   = 500,   // 参数无效
+    CCNetWorkStateServerExecuteError = 501,   // 执行错误
+};
+
 #endif /* CCityEnmu_h */

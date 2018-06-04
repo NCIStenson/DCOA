@@ -564,10 +564,10 @@ static NSString* officalBackLogCellReuseId = @"officalBackLogCellReuseId";
             break;
     }
     
-     [self pushToDocDetailVCWithId:model.docId indexPath:indexPath];
+     [self pushToDocDetailVCWithId:model.docId indexPath:indexPath withIsRead:model.isRead];
 }
 
-- (void)pushToDocDetailVCWithId:(NSDictionary*)docId indexPath:(NSIndexPath*)indexPath{
+- (void)pushToDocDetailVCWithId:(NSDictionary*)docId indexPath:(NSIndexPath*)indexPath withIsRead:(BOOL)isRead{
     
     NSArray* itemsArr;
     
@@ -583,7 +583,7 @@ static NSString* officalBackLogCellReuseId = @"officalBackLogCellReuseId";
     docDetialVC.indexPath = indexPath;
     docDetialVC.mainStyle = _mainStyle;
     docDetialVC.hidesBottomBarWhenPushed = YES;
-    
+    docDetialVC.isread =isRead;
     docDetialVC.sendActionSuccessed = ^(NSIndexPath *indexPath) {
         
         NSMutableArray* dataArr = _subDataDic[@(contentMode)];

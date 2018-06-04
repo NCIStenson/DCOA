@@ -41,7 +41,6 @@ static NSString* cellReuseId = @"cellReuseId";
     }
     
     if (_huiqianTableView) {    [_huiqianTableView removeFromSuperview];    }
-    
     if (_model.style == CCityOfficalDetailHuiQianOpinionStyle) {
         
         [_textView removeFromSuperview];

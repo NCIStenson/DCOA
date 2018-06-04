@@ -19,6 +19,8 @@
 
 @property(nonatomic, strong)NSString* url;
 @property(nonatomic, assign)BOOL      isEnd;
+/* 取回功能入口在已办箱的详情右上角的弹出菜单   如果是已阅的就不显示如果未阅就显示 */
+@property (nonatomic,assign) BOOL isread;
 
 @property(nonatomic, copy)void(^reloadData)(void);
 

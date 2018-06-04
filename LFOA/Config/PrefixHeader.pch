@@ -20,6 +20,7 @@
 #import "CCityJSONNetWorkManager.h"
 #import "CCitySingleton.h"
 #import "CCityAlterManager.h"
+#import "CCErrorNoManager.h"
 
 #import "CCityNoDataCell.h"
 #import "CCityNoDataSection.h"
