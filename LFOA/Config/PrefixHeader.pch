@@ -21,6 +21,7 @@
 #import "CCitySingleton.h"
 #import "CCityAlterManager.h"
 #import "CCErrorNoManager.h"
+#import "CCUtil.h"
 
 #import "CCityNoDataCell.h"
 #import "CCityNoDataSection.h"

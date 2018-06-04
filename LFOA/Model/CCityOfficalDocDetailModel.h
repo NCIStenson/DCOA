@@ -13,6 +13,14 @@
 @property(nonatomic, strong)NSString* personName;
 @property(nonatomic, strong)NSString* opinio;
 
+@property(nonatomic, strong)NSMutableArray* contentsMuArr;
+@property(nonatomic, strong)NSString* title;
+@property(nonatomic, strong)NSString* content;
+@property(nonatomic, strong)NSString* field;
+@property(nonatomic, strong)NSString* rowId;
+
+-(NSString*)currentFormatTime;
+
 - (instancetype)initWithPerosn:(NSString*)personName opinio:(NSString*)opinio;
 @end
 
@@ -25,6 +33,7 @@
 @property(nonatomic, assign)CGFloat           sectionHeight;
 @property(nonatomic, assign)CGSize            titleLabelSize;
 
+@property(nonatomic, assign)NSInteger         cellNum;
 @property(nonatomic, assign)BOOL              hasCell;
 @property(nonatomic, assign)BOOL              canEdit;
 
@@ -34,6 +43,8 @@
 @property(nonatomic, strong)NSString*         field;
 @property(nonatomic, strong)NSArray*          switchContentArr;
 @property(nonatomic, strong)NSMutableArray*   huiqianContentsMuArr;
+@property(nonatomic, strong)NSMutableArray*   huiQianMuArr;
+@property(nonatomic, strong)CCHuiQianModel*   emptyHuiQianModel;
 
 - (instancetype)initWithDic:(NSDictionary*)dic;
 

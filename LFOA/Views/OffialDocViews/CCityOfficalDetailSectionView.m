@@ -77,12 +77,15 @@
         
          _imageView = [[UIImageView alloc]init];
     } else if (_contentStyle == CCityOfficalDetailMutableLineTextStyle) {
-        
-        _imageView = [[UIImageView alloc]init];
-    } else if (_contentStyle == CCityOfficalDetailHuiQianOpinionStyle) {
-        
-        _imageView = [[UIImageView alloc]init];
-    } else {
+        self.userInteractionEnabled = NO;
+//        _imageView = [[UIImageView alloc]init];
+    }else if (_contentStyle == CCityOfficalDetailDataExcleStyle) {
+        _addBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        _addBtn.backgroundColor = [UIColor whiteColor];
+        [_addBtn setImage:[UIImage imageNamed:@"cc_single_add_24x24"] forState:UIControlStateNormal];
+        [_addBtn setImage:[UIImage imageNamed:@"cc_gray_single_add_24x24"] forState:UIControlStateHighlighted];
+        _addBtn.imageView.contentMode = UIViewContentModeRight;
+    }else {
         
         _valueLabel = [UILabel new];
         _valueLabel.textAlignment = NSTextAlignmentRight;
@@ -109,6 +112,35 @@
             make.right.equalTo(self).with.offset(-10.f);
             make.bottom.equalTo(self).with.offset(-10.f);
             make.width.equalTo(_imageView.mas_height);
+        }];
+    }else if (_addBtn) {
+        
+        [self addSubview:_addBtn];
+        
+        [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.top.equalTo(self);
+            make.left.equalTo(self).offset(10.f);
+            make.bottom.equalTo(self);
+            make.right.equalTo(_addBtn.mas_left).with.offset(-10.f);
+        }];
+        
+        [_addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.top.equalTo(self).with.offset(1.f);
+            make.right.equalTo(self).with.offset(-10.f);
+            make.bottom.equalTo(self).with.offset(0.f);
+            make.width.equalTo(@44.f);
+        }];
+        _addBtn.hidden = YES;
+    }else {
+        
+        [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.top.equalTo(self);
+            make.left.equalTo(self).offset(10.f);
+            make.bottom.equalTo(self);
+            make.right.equalTo(self).with.offset(-10.f);
         }];
     }
 }

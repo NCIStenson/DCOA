@@ -22,6 +22,7 @@
 @property(nonatomic, strong) UIImageView* imageView;
 @property(nonatomic, strong) UILabel*     titleLabel;
 @property(nonatomic, strong) UILabel*     valueLabel;
+@property(nonatomic, strong) UIButton*    addBtn;
 
 - (instancetype)initWithStyle:(CCityOfficalDetailSectionStyle)sectionStyle;
 

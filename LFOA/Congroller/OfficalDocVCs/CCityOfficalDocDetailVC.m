@@ -5,6 +5,7 @@
 //  Created by  abcxdx@sina.com on 2017/8/3.
 //  Copyright © 2017年  abcxdx@sina.com. All rights reserved.
 //
+#define LOCAL_CELL_FONT_SIZE 13.f
 
 #import "CCityOfficalDocDetailVC.h"
 #import "CCityOfficalDetailSectionView.h"
@@ -20,12 +21,14 @@
 #import <TSMessage.h>
 #import "XuAlertCon.h"
 #import "CCErrorNoManager.h"
+#import "CCHuiqianDetailVC.h"
 
 @interface CCityOfficalDocDetailVC ()<CCityOfficalDocDetailDelegate,CCityOffialPersonListDelegate>
 
 @end
-
-static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSectionReuseId";
+static NSString* ccityOfficlaDataExcleReuseId  = @"CCityOfficalDetailDataExcleStyle";
+static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTextStyle";
+//static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSectionReuseId";
 
 @implementation CCityOfficalDocDetailVC {
     
@@ -37,6 +40,9 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
     
     NSMutableDictionary* _valuesDic;
     NSMutableDictionary* _docId;
+    
+    NSString*                   _huiQianStr;
+    NSIndexPath*                _huiQianIndexPath;
     
     XuAlertCon*          _alertCon;
     NSIndexPath*         _currentHuiqianCellIndexPath;
@@ -62,20 +68,20 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
     self.navigationItem.rightBarButtonItem = [self rightBarBtnItem];
     
     if (_conentMode == CCityOfficalDocBackLogMode) {
-     
+        
         _footerView = [self footerView];
         [self.view addSubview:_footerView];
         
         [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
-
-                if ([[CCitySystemVersionManager deviceStr] isEqualToString:@"iPhone X"]) {
             
-                    make.bottom.equalTo(self.view).with.offset(-79.f);
-
-                } else {
-        
-                    make.bottom.equalTo(self.view).with.offset(-49.f);
-                }
+            if ([[CCitySystemVersionManager deviceStr] isEqualToString:@"iPhone X"]) {
+                
+                make.bottom.equalTo(self.view).with.offset(-79.f);
+                
+            } else {
+                
+                make.bottom.equalTo(self.view).with.offset(-49.f);
+            }
         }];
         
         [_footerView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -95,7 +101,8 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
             make.bottom.equalTo(self.view);
         }];
     }
-    
+    [self.tableView registerClass:[CCityOfficalDocDetailCell class] forCellReuseIdentifier:ccityOfficlaDataExcleReuseId];
+    [self.tableView registerClass:[CCityOfficalDocDetailCell class] forCellReuseIdentifier:ccityOfficlaMuLineReuseId];
     self.tableView.estimatedRowHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
@@ -136,7 +143,7 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
     
     UIButton* saveBtn = [self getBottomBtnWithTitle:@"保 存" sel:@selector(saveAction)];
     
-     _sendBtn =[self getBottomBtnWithTitle:@"发 送" sel:@selector(sendAction)];
+    _sendBtn =[self getBottomBtnWithTitle:@"发 送" sel:@selector(sendAction)];
     
     if (_isEnd) {
         [_sendBtn setTitle:@"结案" forState:UIControlStateNormal];
@@ -158,7 +165,7 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
     
     NSMutableArray* btnsArr = [@[NWBtn,saveBtn,_sendBtn] mutableCopy];
     
-//    return;
+    //    return;
     if (huiqianBtn ) {
         [btnsArr addObject:huiqianBtn];
     }
@@ -178,20 +185,20 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
         btn.frame = CGRectMake(10 + (btnWidth + 10) * i, marginTop, btnWidth, btnHeight);
     }
     
-//    [btnsArr mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:10 leadSpacing:10 tailSpacing:10];
-//
-//    [btnsArr mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.top.equalTo(_footerView).with.offset(5.f);
-//
-//        if ([[CCitySystemVersionManager deviceStr] isEqualToString:@"iPhone X"]) {
-//
-//            make.bottom.equalTo(_footerView).with.offset(-30.f);
-//        } else {
-//
-//            make.bottom.equalTo(_footerView).with.offset(-10.f);
-//        }
-//    }];
+    //    [btnsArr mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:10 leadSpacing:10 tailSpacing:10];
+    //
+    //    [btnsArr mas_makeConstraints:^(MASConstraintMaker *make) {
+    //
+    //        make.top.equalTo(_footerView).with.offset(5.f);
+    //
+    //        if ([[CCitySystemVersionManager deviceStr] isEqualToString:@"iPhone X"]) {
+    //
+    //            make.bottom.equalTo(_footerView).with.offset(-30.f);
+    //        } else {
+    //
+    //            make.bottom.equalTo(_footerView).with.offset(-10.f);
+    //        }
+    //    }];
 }
 
 -(UIButton*)getBottomBtnWithTitle:(NSString*)title sel:(SEL)sel {
@@ -264,21 +271,21 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
             __block CCityOfficalDocDetailVC* blockSelf = self;
             
             _fileListView.pushToFileViewerVC = ^(UIViewController *fileViewerVC) {
-              
+                
                 [blockSelf pushTo:fileViewerVC];
             };
             
             [self.view addSubview:_fileListView];
             
             [_fileListView mas_makeConstraints:^(MASConstraintMaker *make) {
-               
+                
                 make.top.equalTo(self.tableView);
                 make.left.equalTo(self.tableView);
                 make.right.equalTo(self.tableView);
                 make.bottom.equalTo(self.view);
             }];
             [self.view bringSubviewToFront:_fileListView];
-
+            
         } else {
             
             [self.view bringSubviewToFront:_fileListView];
@@ -306,7 +313,7 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
     };
     
     menuVC.pushToRoot = ^{
-      
+        
         if (self.sendActionSuccessed) {
             self.sendActionSuccessed(_indexPath);
         }
@@ -321,7 +328,7 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
     [self.navigationController presentViewController:menuVC animated:NO completion:nil];
 }
 
-// push to vc 
+// push to vc
 -(void)pushTo:(UIViewController*)vc {
     
     [self.navigationController pushViewController:vc animated:YES];
@@ -331,7 +338,7 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
 - (void) sectionViewClicked:(CCityOfficalDetailSectionView*)sectionView {
     
     CCityOfficalDocDetailModel* model = self.dataArr[sectionView.sectionNum];
-   
+    
     [self.view endEditing:YES];
     
     if (sectionView.imageView) {
@@ -342,9 +349,9 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
         [self.tableView beginUpdates];
         
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:sectionView.sectionNum] withRowAnimation:UITableViewRowAnimationFade];
-
+        
         [self.tableView endUpdates];
-    
+        
     } else {
         
         if (model.canEdit == NO) {  return; }
@@ -370,7 +377,7 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
     UIAlertController* alertController = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-       
+        
         textField.text = model.value;
     }];
     
@@ -394,9 +401,9 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
     CCityDatePickerVC* dataPicker = [[CCityDatePickerVC alloc]initWithDate:nil];
     
     dataPicker.slelectAction = ^(NSString *date) {
-      
+        
         [self saveMethodWithIndex:index andText:date];
-           [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationNone];
     };
     
     [self presentViewController:dataPicker animated:YES completion:nil];
@@ -499,6 +506,24 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
     }
 }
 
+-(void)addHuiQianOpinioAction:(UIButton*)btn {
+    
+    NSInteger section = btn.tag - 5000;
+    CCityOfficalDocDetailModel* model = self.dataArr[section];
+    
+    CCHuiqianDetailVC* huiqianDetailVC = [[CCHuiqianDetailVC alloc]initWithModel:model title:model.title style:CCHuiQianEditAddStyle];
+    huiqianDetailVC.docId       = _docId;
+    huiqianDetailVC.outerRowNum = section;
+    
+    huiqianDetailVC.addSuccess = ^() {
+        
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:model.huiQianMuArr.count - 1 inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
+    };
+    
+    [self pushTo:huiqianDetailVC];
+}
+
+
 -(void)huiqianAction {
     
     UIButton* cancelBtn = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -535,7 +560,7 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
 
 - (void) saveMethodWithIndex:(NSInteger)index andText:(NSString*)text {
     
-     if (!_valuesDic) {  _valuesDic = [NSMutableDictionary dictionary];  }
+    if (!_valuesDic) {  _valuesDic = [NSMutableDictionary dictionary];  }
     
     CCityOfficalDocDetailModel* model = self.dataArr[index];
     
@@ -565,6 +590,7 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
     
     // 保存到table中，因为table 是指针，所以同步会保存到 _valuesDic 中
     [talbeDic setObject:valusDic forKey:model.field];
+    
 }
 
 - (void)checkVisibleWithView:(CCityOfficalDetailSectionView*)view {
@@ -583,6 +609,89 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
     [self.view endEditing:YES];
 }
 
+- (void)updataHuiQianUIWithState:(BOOL)isAdd {
+    
+    CCityOfficalDocDetailModel* model = self.dataArr[_huiQianIndexPath.section];
+    
+    if (isAdd) {
+        
+        CCHuiQianModel* huiqianModel = [[CCHuiQianModel alloc]init];
+        huiqianModel.contentsMuArr = [NSMutableArray arrayWithCapacity:4];
+        
+        for (int i = 0; i < 4; i++) {
+            
+            CCHuiQianModel* lastModel = [CCHuiQianModel new];
+            
+            switch (i) {
+                case 0:
+                    lastModel.title = @"签字意见: ";
+                    lastModel.content = _huiQianStr;
+                    break;
+                case 1:
+                    
+                    lastModel.title   = @"签字人: ";
+                    lastModel.content = [CCitySingleton sharedInstance].userName;
+                    break;
+                case 2:
+                    
+                    lastModel.title   = @"签字日期: ";
+                    lastModel.content = lastModel.currentFormatTime;
+                    break;
+                case 3:
+                    
+                    lastModel.title   = @"所在科室: ";
+                    lastModel.content = [CCitySingleton sharedInstance].deptname;
+                    break;
+                default:
+                    break;
+            }
+            
+            [huiqianModel.contentsMuArr addObject:lastModel];
+        }
+        if (!model.huiQianMuArr) {
+            model.huiQianMuArr = [NSMutableArray array];
+        }
+        [model.huiQianMuArr addObject:huiqianModel];
+        [self.tableView beginUpdates];
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:(_huiQianIndexPath.row + 1) inSection:_huiQianIndexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:_huiQianIndexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    } else {
+        CCHuiQianModel* huiqianModel = [model.huiQianMuArr lastObject];
+        for (int i = 0 ; i < huiqianModel.contentsMuArr.count; i++) {
+            CCHuiQianModel* model = huiqianModel.contentsMuArr[i];
+            if ([model.title containsString:@"签字意见"]) {
+                model.content = _huiQianStr;
+            }
+        }
+        if ([CCUtil isNotNull:_huiQianIndexPath]) {
+            [self.tableView reloadRowsAtIndexPaths:@[_huiQianIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+        }
+    }
+}
+
+-(NSAttributedString*)huiqianCellAttributedStr:(CCHuiQianModel*)model {
+    
+    NSInteger innerCellNum = model.contentsMuArr.count<=4?model.contentsMuArr.count:4;
+    NSString* contentStr = @"";
+    
+    for (int i = 0; i < innerCellNum; i++) {
+        
+        CCHuiQianModel* detailModel = model.contentsMuArr[i];
+        if (i == innerCellNum - 1) {
+            contentStr = [contentStr stringByAppendingString:[NSString stringWithFormat:@"%@：%@", detailModel.title, detailModel.content]];
+        } else {
+            contentStr = [contentStr stringByAppendingString: [NSString stringWithFormat:@"%@：%@\n", detailModel.title, detailModel.content]];
+        }
+    }
+    
+    NSMutableParagraphStyle* paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+    paragraphStyle.lineSpacing = 5.f;
+    NSAttributedString* resultStr = [[NSAttributedString alloc]initWithString:contentStr attributes:@{NSParagraphStyleAttributeName:paragraphStyle}];
+    return resultStr;
+}
+
+
 #pragma mark- --- network
 
 -(void)huiqianBtnAction:(UIButton*)btn {
@@ -592,96 +701,109 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
     if (btn.tag == 20001) {
         
         [_alertCon dismissViewControllerAnimated:YES completion:^{
-           
+            
             if (dataTask) { [dataTask cancel];  }
         }];
         
         [SVProgressHUD dismiss];
     } else {
-
+        
         if (_alertCon.textView.text.length <= 0) {
-
+            
             [SVProgressHUD showErrorWithStatus:@"内容为空"];
             [SVProgressHUD dismissWithDelay:1.5f];
             return;
         }
-    
-        [SVProgressHUD show];
-
-        AFHTTPSessionManager* manager = [CCityJSONNetWorkManager sessionManager];
-    
-        NSDictionary* parameters = @{
-                                     @"token"  :[CCitySingleton sharedInstance].token,
-                                     @"workId" :_docId[@"workId"],
-                                     @"fkNode" :_docId[@"fkNode"],
-                                     @"content":_alertCon.textView.text
-                                     };
         
-        dataTask = [manager GET:@"service/form/SignOpinion.ashx" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            
-            [SVProgressHUD dismiss];
-
-            if ([responseObject[@"status"] isEqualToString:@"failed"]) {
-                
-                [SVProgressHUD showErrorWithStatus:@"发送失败"];
-                [SVProgressHUD dismissWithDelay:1.5f];
-            } else {
-                
-                [_alertCon dismissViewControllerAnimated:NO completion:^{
-                    
-                      [TSMessage showNotificationWithTitle:@"发送成功" type:TSMessageNotificationTypeSuccess];
-                }];
-                
-                CCityOfficalDocDetailModel* detailModel = self.dataArr[_currentHuiqianCellIndexPath.section];
-                CCityOfficalDocDetailCell* cell = [self.tableView cellForRowAtIndexPath:_currentHuiqianCellIndexPath];
-                
-                for (int i = 0; i < detailModel.huiqianContentsMuArr.count; i++) {
-                    
-                    CCHuiQianModel* model = detailModel.huiqianContentsMuArr[i];
-                    if ([model.personName isEqualToString:[CCitySingleton sharedInstance].userName]) {
-                        model.opinio = _alertCon.textView.text;
-                        
-                        [cell.huiqianTableView beginUpdates];
-                        [cell.huiqianTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-                        [cell.huiqianTableView endUpdates];
-                        [cell.huiqianTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-                        return;
-                    }
-                }
-                CCHuiQianModel* model = [[CCHuiQianModel alloc]initWithPerosn:[CCitySingleton sharedInstance].userName opinio:_alertCon.textView.text];
-                
-                [detailModel.huiqianContentsMuArr addObject:model];
-                
-                [cell.huiqianTableView beginUpdates];
-                [cell.huiqianTableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:detailModel.huiqianContentsMuArr.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-                [cell.huiqianTableView endUpdates];
-                [cell.huiqianTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:detailModel.huiqianContentsMuArr.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-            }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
-            [SVProgressHUD dismiss];
-
-            if (CCITY_DEBUG) {  NSLog(@"%@",error); }
-
-            if (error.code != -999) {
-                
-                 [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-                 [SVProgressHUD dismissWithDelay:1.5f];
-            }
-        }];
+        _huiQianStr = _alertCon.textView.text;
+        [self saveAction:btn];
+        //        [SVProgressHUD show];
+        
+        //        AFHTTPSessionManager* manager = [CCityJSONNetWorkManager sessionManager];
+        //
+        //        NSDictionary* parameters = @{
+        //                                     @"token"  :[CCitySingleton sharedInstance].token,
+        //                                     @"workId" :_docId[@"workId"],
+        //                                     @"fkNode" :_docId[@"fkNode"],
+        //                                     @"content":_alertCon.textView.text
+        //                                     };
+        
+        //        dataTask = [manager GET:@"service/form/SignOpinion.ashx" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        //            [SVProgressHUD dismiss];
+        
+        //            if ([responseObject[@"status"] isEqualToString:@"failed"]) {
+        //
+        //                [SVProgressHUD showErrorWithStatus:@"发送失败"];
+        //                [SVProgressHUD dismissWithDelay:1.5f];
+        //            } else {
+        
+        //                [_alertCon dismissViewControllerAnimated:NO completion:^{
+        //
+        //                      [TSMessage showNotificationWithTitle:@"发送成功" type:TSMessageNotificationTypeSuccess];
+        //                }];
+        //                _huiQianStr = _alertCon.textView.text;
+        //                [self updataHuiQianUIWithState:YES];
+        //                CCityOfficalDocDetailModel* detailModel = self.dataArr[_currentHuiqianCellIndexPath.section];
+        //                CCityOfficalDocDetailCell* cell = [self.tableView cellForRowAtIndexPath:_currentHuiqianCellIndexPath];
+        //
+        //                for (int i = 0; i < detailModel.huiqianContentsMuArr.count; i++) {
+        //
+        //                    CCHuiQianModel* model = detailModel.huiqianContentsMuArr[i];
+        //                    if ([model.personName isEqualToString:[CCitySingleton sharedInstance].userName]) {
+        //                        model.opinio = _alertCon.textView.text;
+        //                        return;
+        //                    }
+        //                }
+        //                CCHuiQianModel* model = [[CCHuiQianModel alloc]initWithPerosn:[CCitySingleton sharedInstance].userName opinio:_alertCon.textView.text];
+        //
+        //                [detailModel.huiqianContentsMuArr addObject:model];
+        
+        //                [cell.huiqianTableView beginUpdates];
+        //                [cell.huiqianTableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:detailModel.huiqianContentsMuArr.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+        //                [cell.huiqianTableView endUpdates];
+        //                [cell.huiqianTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:detailModel.huiqianContentsMuArr.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        //            }
+        //        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        //
+        //            [SVProgressHUD dismiss];
+        //
+        //            if (CCITY_DEBUG) {  NSLog(@"%@",error); }
+        //
+        //            if (error.code != -999) {
+        //
+        //                 [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+        //                 [SVProgressHUD dismissWithDelay:1.5f];
+        //            }
+        //        }];
     }
 }
 
 // save
-- (void) saveAction {
+- (void) saveAction:(UIButton*)btn {
     
-    if (!_valuesDic) {
-        
-        [SVProgressHUD showInfoWithStatus:@"数据未改变，无需保存"];
+    [self.view endEditing:YES];
+    
+    //    if (_isNewProject) {
+    //        if([CCUtil isNotNull:self.dataArr]){
+    //            for (int i = 0 ; i < self.dataArr.count; i++) {
+    //                CCityOfficalDocDetailModel* model = self.dataArr[i];
+    //                if (model.value.length > 0) {
+    //                    [self saveMethodWithIndex:i andText:model.value];
+    //                }
+    //            }
+    //        }
+    //    }
+    
+    if (!_valuesDic.count && !_huiQianStr) {
+        if (btn) {
+            [SVProgressHUD showInfoWithStatus:@"数据未改变，无需保存"];
+        }
         return;
     }
     
-    [SVProgressHUD show];
+    if (btn) {  [SVProgressHUD show];   }
+    
     AFHTTPSessionManager* manager = [CCityJSONNetWorkManager sessionManager];
     
     NSMutableDictionary* parameters = [NSMutableDictionary dictionaryWithCapacity:2];
@@ -695,27 +817,103 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
     
     [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     
-    [manager POST:@"service/form/Save.ashx" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    dispatch_group_t groupQueue = dispatch_group_create();
+    
+    __block BOOL isFileListSaveSuccess = NO;
+    __block BOOL isHuiQianSaveSuccess = NO;
+    __block BOOL isHuiQianAdd = NO;  // 会签 插入/更新
+    
+    // 表单保存
+    if (_valuesDic.count) {
+        dispatch_group_enter(groupQueue);
         
+        [manager POST:@"service/form/Save.ashx" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            
+            CCErrorNoManager* errorManager = [CCErrorNoManager new];
+            
+            if (![errorManager requestSuccess:responseObject]) {
+                
+                [errorManager getErrorNum:responseObject WithVC:self WithAction:nil loginSuccess:^{
+                    [self saveAction:btn];
+                }];
+                return;
+            } else {
+                
+                if (btn) {
+                    isFileListSaveSuccess = YES;
+                    dispatch_group_leave(groupQueue);
+                    NSLog(@"=======================================");
+                }
+            }
+            
+            if (CCITY_DEBUG) { NSLog(@"fileList:%@",responseObject); }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            dispatch_group_leave(groupQueue);
+            
+            //            if (btn) {
+            //
+            //                [CCityAlterManager showSimpleTripsWithVC:self Str:error.localizedDescription detail:nil];
+            //            }
+            if (CCITY_DEBUG) {
+                NSLog(@"fileListError:%@",error);
+            }
+        }];
+    } else {
+        isFileListSaveSuccess = YES;
+    }
+    
+    
+    // 会签意见
+    if (_huiQianStr) {
+        
+        dispatch_group_enter(groupQueue);
+        NSLog(@"%@",_huiQianStr);
+        NSDictionary* parame = @{
+                                 @"token"   :[CCitySingleton sharedInstance].token,
+                                 @"content" :_huiQianStr,
+                                 @"workId"  :_docId[@"workId"],
+                                 @"fkNode":_docId[@"fkNode"],
+                                 };
+        
+        [manager GET:@"service/form/SignOpinion.ashx" parameters:parame progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            
+            NSLog(@"%@",task.currentRequest.URL.absoluteString);
+            
+            CCErrorNoManager* errorManager = [CCErrorNoManager new];
+            
+            if([errorManager requestSuccess:responseObject]) {
+                isHuiQianSaveSuccess = YES;
+                
+                // insert/update
+                if ([responseObject[@"operation"] isEqual:@"insert"]) {
+                    isHuiQianAdd = YES;
+                }
+            }
+            dispatch_group_leave(groupQueue);
+            
+            if (CCITY_DEBUG) { NSLog(@"huiqian:%@",responseObject); }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+            dispatch_group_leave(groupQueue);
+            
+            if (CCITY_DEBUG) { NSLog(@"huiqianError:%@",error); }
+        }];
+    } else {
+        isHuiQianSaveSuccess = YES;
+    }
+    
+    dispatch_group_notify(groupQueue, dispatch_get_main_queue(), ^{
+        NSLog(@"全部执行结束。。。。。。");
         [SVProgressHUD dismiss];
         
-        if ([responseObject[@"status"] isEqual:@"success"]) {
-            
-            [CCityAlterManager showSimpleTripsWithVC:self Str:@"保存成功" detail:nil];
+        NSString* tripStr = @"保存失败";
+        if (isHuiQianSaveSuccess && isFileListSaveSuccess) {
+            tripStr = @"保存成功";
+            [self updataHuiQianUIWithState:isHuiQianAdd];
         }
-        
-        if (CCITY_DEBUG) {
-            
-            NSLog(@"%@",responseObject);
-        }
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
-        [SVProgressHUD dismiss];
-        [CCityAlterManager showSimpleTripsWithVC:self Str:error.localizedDescription detail:nil];
-        
-        NSLog(@"%@",error);
-    }];
+        [CCityAlterManager showSimpleTripsWithVC:self Str:tripStr detail:nil];
+    });
+    
 }
 
 - (void)configDataWithId:(NSDictionary*)docId {
@@ -733,7 +931,7 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
         NSLog(@"%@",task.currentRequest.URL.absoluteString);
         
         [SVProgressHUD dismiss];
-
+        
         if ([responseObject isKindOfClass:[NSArray class]]) {
             
             NSLog(@"%@",responseObject);
@@ -747,21 +945,21 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
                     self.isEnd = [responseObject[@"isEnd"] boolValue];
                 }
             }
-
+            
             
             if ([responseObject[@"status"] isEqualToString:@"failed"]) {
                 
                 
-                    CCErrorNoManager* errorManager = [CCErrorNoManager new];
-                    if (![errorManager requestSuccess:responseObject]) {
-                        
-                        [errorManager getErrorNum:responseObject WithVC:self WithAction:nil loginSuccess:^{
-                            
-                            [self configDataWithId:_docId];
-                        }];
-                        return;
-                    }
+                CCErrorNoManager* errorManager = [CCErrorNoManager new];
+                if (![errorManager requestSuccess:responseObject]) {
                     
+                    [errorManager getErrorNum:responseObject WithVC:self WithAction:nil loginSuccess:^{
+                        
+                        [self configDataWithId:_docId];
+                    }];
+                    return;
+                }
+                
                 return;
             }
             
@@ -774,7 +972,7 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
             }
             
             if (!_docId[@"fId"]) {
-                 _docId[@"fId"] = responseObject[@"fid"];
+                _docId[@"fId"] = responseObject[@"fid"];
             }
             if (!_docId[@"fkNode"]) {
                 _docId[@"fkNode"] = responseObject[@"fkNode"];
@@ -797,8 +995,7 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
                     
                     if (model.canEdit) {    model.canEdit = NO; }
                 } else {
-                    
-                    if (model.style == CCityOfficalDetailHuiQianOpinionStyle) {
+                    if (model.style == CCityOfficalDetailHuiQianStyle) {
                         isContentHuiQian = YES;
                         _currentHuiqianCellIndexPath = [NSIndexPath indexPathForRow:0 inSection:i];
                     }
@@ -807,7 +1004,7 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
                 [self.dataArr addObject:model];
             }
             
-             [self updataFootViewWithContentHuiQian:isContentHuiQian];
+            [self updataFootViewWithContentHuiQian:isContentHuiQian];
         } else {
             
             [CCityAlterManager showSimpleTripsWithVC:self Str:@"提示" detail:@"服务器返回数据格式不合法，无法解析"];
@@ -861,11 +1058,23 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    UILabel* label = [UILabel new];
+    label.font = [UIFont systemFontOfSize:LOCAL_CELL_FONT_SIZE];
+    CCityOfficalDocDetailModel* model = self.dataArr[indexPath.section];
+    if (indexPath.row < model.huiQianMuArr.count) {
+        CCHuiQianModel* huiqianModel = model.huiQianMuArr[indexPath.row];
+        label.attributedText = [self huiqianCellAttributedStr:huiqianModel];
+        label.numberOfLines = 0;
+        CGFloat rightPadding = 35;
+        label.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 30 - 20 -rightPadding, MAXFLOAT);
+        [label sizeToFit];
+        return label.bounds.size.height+10;
+    }
     return 100.f;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-   
+    
     CCityOfficalDocDetailModel* model = self.dataArr[section];
     
     if (model.style == CCityOfficalDetailNormalStyle) {
@@ -879,13 +1088,14 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     CCityOfficalDocDetailModel* model = self.dataArr[section];
-
-    CCityOfficalDetailSectionView* sectionView = [[CCityOfficalDetailSectionView alloc]initWithStyle:model.style];
     
-    sectionView.sectionNum = section;
-    [sectionView addTarget:self action:@selector(sectionViewClicked:) forControlEvents:UIControlEventTouchUpInside];
+    CCityOfficalDetailSectionView* sectionView = [[CCityOfficalDetailSectionView alloc]initWithStyle:model.style];
+    sectionView.sectionNum      = section;
     sectionView.backgroundColor = [UIColor whiteColor];
-    sectionView.model = model;
+    sectionView.model           = model;
+    sectionView.addBtn.tag = 5000+section;
+    [sectionView.addBtn addTarget:self action:@selector(addHuiQianOpinioAction:) forControlEvents:UIControlEventTouchUpInside];
+    [sectionView addTarget:self action:@selector(sectionViewClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     return sectionView;
 }
@@ -899,21 +1109,74 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
     
     CCityOfficalDocDetailModel* model = self.dataArr[section];
     
-    if (model.hasCell) {    return 1;   }
-    
-    return 0;
+    if (model.style == CCityOfficalDetailDataExcleStyle) {
+        return model.huiQianMuArr.count;
+    }else if (model.style == CCityOfficalDetailMutableLineTextStyle) {
+        return model.cellNum;
+    }  else if (model.style == CCityOfficalDetailHuiQianStyle) {
+        return model.huiQianMuArr.count;
+    }
+    return model.cellNum;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     CCityOfficalDocDetailModel* model = self.dataArr[indexPath.section];
-    CCityOfficalDocDetailCell* cell   = [[CCityOfficalDocDetailCell alloc]initWithStyle:model.style];
+    
+    CCityOfficalDocDetailCell*  cell = nil;
+    
+    if (model.style == CCityOfficalDetailDataExcleStyle) {
+        
+        cell = [tableView dequeueReusableCellWithIdentifier:ccityOfficlaDataExcleReuseId];
+        
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",indexPath.row + 1];
+        CCHuiQianModel* huiqaianModel = model.huiQianMuArr[indexPath.row];
+        cell.textLabel.attributedText = [self huiqianCellAttributedStr:huiqaianModel];
+    } else if (model.style == CCityOfficalDetailHuiQianStyle) {
+        
+        if (!_huiQianIndexPath) {
+            NSInteger rowNum = 0;
+            
+            if (model.huiQianMuArr && model.huiQianMuArr.count) {
+                rowNum = model.huiQianMuArr.count -1;
+            }
+            
+            _huiQianIndexPath = [NSIndexPath indexPathForRow:rowNum inSection:indexPath.section];
+        }
+        
+        if (indexPath.row == model.huiQianMuArr.count) {
+            
+            model.canEdit = YES;
+            cell = [tableView dequeueReusableCellWithIdentifier:ccityOfficlaMuLineReuseId];
+            cell.delegate = self;
+            cell.tag = 100100;
+        } else {
+            
+            cell = [tableView dequeueReusableCellWithIdentifier:ccityOfficlaDataExcleReuseId];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.numLabel.text = [NSString stringWithFormat:@"%ld",indexPath.row+1];
+            CCHuiQianModel* huiqaianModel = model.huiQianMuArr[indexPath.row];
+            cell.textLabel.attributedText = [self huiqianCellAttributedStr:huiqaianModel];
+        }
+        if (indexPath.row == model.huiQianMuArr.count - 1) {
+            cell.removeBottomLine = YES;
+        } else {
+            cell.removeBottomLine = NO;
+        }
+    } else {
+        cell = [tableView dequeueReusableCellWithIdentifier:ccityOfficlaMuLineReuseId];
+    }
     
     cell.model    = model;
     
     cell.delegate = self;
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    if (_conentMode != CCityOfficalDocBackLogMode) {
+        
+        if (cell.textView.editable) {   cell.textView.editable = NO;    }
+    }
     
     return cell;
 }
@@ -939,7 +1202,7 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
 #pragma mark- --- tableViewCell delegate
 
 -(void)textViewWillEditingWithCell:(CCityOfficalDocDetailCell*)cell {
- 
+    
     _editCellFrame = cell.frame;
 }
 
@@ -953,10 +1216,11 @@ static NSString* ccifyOfficlaDetailSectionReuseId  = @"ccifyOfficlaDetailSection
 // 文本编辑结束时 调用
 -(void)textViewDidEndEditingWithCell:(CCityOfficalDocDetailCell*)cell {
     
-//    得到编辑的 cell
+    //    得到编辑的 cell
     NSIndexPath* indexPath = [self.tableView indexPathForCell:cell];
     _editCellFrame = CGRectZero;
     [self saveMethodWithIndex:indexPath.section andText:cell.textView.text];
 }
 
 @end
+

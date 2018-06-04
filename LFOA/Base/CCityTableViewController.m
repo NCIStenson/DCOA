@@ -120,6 +120,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     CCityNoDataCell *cell = [CCityNoDataCell new];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }

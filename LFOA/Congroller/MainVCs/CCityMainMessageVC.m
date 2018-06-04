@@ -302,6 +302,10 @@ static NSString* cellReuseId = @"cellReuseId";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    if(indexPath.row >= self.datasMuArr.count ){
+        return;
+    }
+    
     CCityMessageModel* model = self.datasMuArr[indexPath.row];
     
     [self readMesssageWithId:model.messageId];

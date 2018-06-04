@@ -180,7 +180,9 @@ static NSString* cellReuseId = @"cellReuseId";
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if(indexPath.row >= self.datasMuArr.count ){
+        return;
+    }
     CCityNoficDetailVC* detailVC = [[CCityNoficDetailVC alloc]initWithModel:self.datasMuArr[indexPath.row]];
     [self.navigationController pushViewController:detailVC animated:YES];
 }

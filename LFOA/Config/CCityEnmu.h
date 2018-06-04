@@ -13,13 +13,16 @@
 
 typedef NS_ENUM(NSUInteger, CCityOfficalDetailSectionStyle) {
     
-    CCityOfficalDetailNormalStyle,
+    CCityOfficalDetailNormalStyle = 0,
     CCityOfficalDetailContentSwitchStyle,
     CCityOfficalDetailDateStyle,
+    CCityOfficalDetailDateTimeStyle,               // 选择日期和时间
     CCityOfficalDetailSimpleLineTextStyle,
     CCityOfficalDetailMutableLineTextStyle,
     CCityOfficalDetailOpinionStyle,
-    CCityOfficalDetailHuiQianOpinionStyle,
+    CCityOfficalDetailDataExcleStyle,          // 数据网格
+    CCityOfficalDetailHuiQianStyle,           // 会签
+
 };
 
 typedef NS_ENUM(NSUInteger, CCityOfficalDocContentMode) {
@@ -34,6 +37,12 @@ typedef NS_ENUM(NSUInteger, CCityOfficalMainStyle) {
     CCityOfficalMainDocStyle,
     CCityOfficalMainSPStyle,
 };
+typedef NS_ENUM(NSUInteger, CCHuiQianEditStyle) {
+    CCHuiQianEditAddStyle,
+    CCHuiQianEditEditStyle,
+    CCHuiQianEditCheckStyle,
+};
+
 /*
  * 服务器返回代码
  */

@@ -23,9 +23,10 @@
 
 @property(nonatomic, strong)UITextView* textView;
 @property(nonatomic, strong)CCityOfficalDocDetailModel* model;
-@property(nonatomic, strong)UITableView* huiqianTableView;
+@property(nonatomic, strong)CCHuiQianModel*             huiqianModel;
+@property(nonatomic, strong)UILabel*                    numLabel;
+@property(nonatomic, assign)BOOL                        removeBottomLine;
 @property(nonatomic, weak)id<CCityOfficalDocDetailDelegate> delegate;
 
-- (instancetype)initWithStyle:(CCityOfficalDetailSectionStyle) style;
-
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 @end
