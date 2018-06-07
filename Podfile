@@ -26,12 +26,13 @@ pod 'JSBadgeView'
 pod 'UITableView+FDTemplateLayoutCell'
 pod 'FDFullscreenPopGesture'
 pod 'SDCycleScrollView','~> 1.66'
+pod 'TTTAttributedLabel'
 
 end
 
-target 'NotficationService' do
-
-    platform :ios, "10.0"
-    pod 'GTExtensionSDK'
-end
+#target 'NotficationService' do
+#
+#    platform :ios, "10.0"
+#    pod 'GTExtensionSDK'
+#end
 

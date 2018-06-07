@@ -47,6 +47,8 @@
             
             _docStyle = CCityOfficalDocBackLogMode;
             _mainStyle = CCityOfficalMainDocStyle;
+        } else if ([_messageType isEqualToString:@"案卷消息"]){
+            _mainStyle = CCityOfficalMainDocStyle;
         }
         
     }

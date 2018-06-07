@@ -450,15 +450,16 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
             wordViewer.title = @"拟文";
             [self.navigationController pushViewController:wordViewer animated:YES];
         } else {
-            
-            [SVProgressHUD showErrorWithStatus:@"服务器错误"];
+//            [SVProgressHUD showErrorWithStatus:@"服务器错误"];
+            [SVProgressHUD showErrorWithStatus:@"请在电脑上先拟文。"];
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
         [SVProgressHUD dismiss];
-        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-        
+//        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+        [SVProgressHUD showErrorWithStatus:@"请在电脑上先拟文。"];
+
         if (CCITY_DEBUG) {  NSLog(@"%@",error); }
     }];
 }

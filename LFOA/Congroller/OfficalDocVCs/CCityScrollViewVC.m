@@ -23,10 +23,15 @@
 {
     self = [super init];
     if (self) {
-        
         _urls = urls;
     }
     return self;
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self cleanCacheAndCookie];
 }
 
 - (void)viewDidLoad {
@@ -59,6 +64,12 @@
 
 - (void) popAction {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)cleanCacheAndCookie{
+    for (int i = 0; i < _urls.count; i ++) {
+        [[SDImageCache sharedImageCache] removeImageForKey:_urls[i] fromDisk:YES withCompletion:nil];
+    }
 }
 
 @end

@@ -9,12 +9,12 @@
 #ifndef CCityUrls_h
 #define CCityUrls_h
 
-//http://122.226.81.198:8082/dcyd  公司
+//http://122.226.81.198:8083/dcyd  公司
 //http://60.10.185.43:8088/dcyd    用户
 
 // http://60.10.184.35:18088/dcyd  // 客户现场
 
-//#define CCITY_BASE_URL @"http://122.226.81.198:8082/dcyd"
+//#define CCITY_BASE_URL @"http://122.226.81.198:8083/dcyd"
 #define CCITY_BASE_URL @"http://60.10.184.35:18088/dcyd"
 
 #endif /* CCityUrls_h */
