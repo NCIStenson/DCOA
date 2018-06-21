@@ -133,7 +133,6 @@
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 
     if (CCITY_DEBUG) {
-        
         NSLog(@"\n\n -- inActive:%ld", (long)application.applicationState);
     }
 
@@ -161,22 +160,20 @@
 }
 
 /** SDK收到透传消息回调 */
-/*
 -(void)GeTuiSdkDidReceivePayloadData:(NSData *)payloadData andTaskId:(NSString *)taskId andMsgId:(NSString *)msgId andOffLine:(BOOL)offLine fromGtAppId:(NSString *)appId {
-    
-    //收到个推消息
+ 
+//    收到个推消息
     NSString* payloadMsg = nil;
-    
+ 
     if (payloadData) {
-        
+ 
         payloadMsg = [[NSString alloc]initWithBytes:payloadData.bytes length:payloadData.length encoding:NSUTF8StringEncoding];
     }
-    
+ 
     NSString *msg = [NSString stringWithFormat:@"taskId=%@,messageId:%@,payloadMsg :%@%@",taskId,msgId, payloadMsg,offLine ? @"<离线消息>" : @""];
-    
+ 
     NSLog(@"\n>>>[GexinSdk ReceivePayload]:%@\n\n", msg);
 }
-*/
 
 #pragma mark- --- methods
 

@@ -59,6 +59,7 @@ static NSString* homeCollectionSectionFooterReuseId = @"homeCollectionSectionFoo
     self.title = @"首页";
     self.view.backgroundColor = CCITY_MAIN_BGCOLOR;
     [self layoutMySubViews];
+    [self configCheckUpdate];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -87,14 +88,13 @@ static NSString* homeCollectionSectionFooterReuseId = @"homeCollectionSectionFoo
     }
     
     if (_sholdHiddenNavBar) {   _sholdHiddenNavBar = NO;    }
+    [self configBadgeNum];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     _hiddenNavBarAnimate = YES;
-    [self configBadgeNum];
-//    [self configCheckUpdate];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
