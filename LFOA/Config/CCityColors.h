@@ -24,4 +24,7 @@
 
 #define MAIN_BLUE_COLOR [UIColor colorWithRed:24/255.0 green:194/255.0 blue:255/255.0 alpha:1]
 
+
+#define MAIN_TEXT_COLOR [CCUtil colorWithHexString:@"#333333"]
+
 #endif /* CCityColors_h */

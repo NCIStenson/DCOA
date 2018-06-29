@@ -202,7 +202,7 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
 }
 
 -(UIButton*)getBottomBtnWithTitle:(NSString*)title sel:(SEL)sel {
-    
+
     UIButton* bottomBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     bottomBtn.backgroundColor = CCITY_MAIN_COLOR;
     [bottomBtn setTitle:title forState:UIControlStateNormal];

@@ -17,6 +17,16 @@
 		9864EB7520C7E809006C281C /* CCLeftBarBtnItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9864EB7320C7E808006C281C /* CCLeftBarBtnItem.m */; };
 		9864EB7820C7E843006C281C /* CCityAppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9864EB7720C7E843006C281C /* CCityAppInfo.m */; };
 		9864EB7A20C7EEC8006C281C /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9864EB7920C7EEC8006C281C /* logo.png */; };
+		98DE015E20E472950064178D /* CCityAddressListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 98DE015D20E472950064178D /* CCityAddressListVC.m */; };
+		98DE016120E47E510064178D /* NSDictionary+CCLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 98DE016020E47E510064178D /* NSDictionary+CCLog.m */; };
+		98DE016420E4CBF90064178D /* CCityAddressDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 98DE016320E4CBF90064178D /* CCityAddressDetailVC.m */; };
+		98DE01FD20E4E19F0064178D /* ccity_root_txl_30x30_@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98DE01FB20E4E19F0064178D /* ccity_root_txl_30x30_@3x.png */; };
+		98DE01FE20E4E19F0064178D /* ccity_root_txl_30x30_@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98DE01FC20E4E19F0064178D /* ccity_root_txl_30x30_@2x.png */; };
+		98DE020320E4E8330064178D /* user_tel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98DE01FF20E4E8320064178D /* user_tel@3x.png */; };
+		98DE020420E4E8330064178D /* user_tel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98DE020020E4E8320064178D /* user_tel@2x.png */; };
+		98DE020520E4E8330064178D /* user_mobile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98DE020120E4E8320064178D /* user_mobile@2x.png */; };
+		98DE020620E4E8330064178D /* user_mobile@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98DE020220E4E8330064178D /* user_mobile@3x.png */; };
+		98DE020920E5D5CD0064178D /* CCityAddressSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 98DE020820E5D5CD0064178D /* CCityAddressSearchVC.m */; };
 		F1072A2F1F345EF1005E4CB0 /* CCityOfficalDocNavMenuBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = F1072A2E1F345EF1005E4CB0 /* CCityOfficalDocNavMenuBtn.m */; };
 		F1072A331F347223005E4CB0 /* ccity_officalDetail_navMenu_list_20x20_@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F1072A301F347223005E4CB0 /* ccity_officalDetail_navMenu_list_20x20_@3x.png */; };
 		F1072A341F347223005E4CB0 /* ccity_officalDetail_navMenu_list_20x20_@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F1072A311F347223005E4CB0 /* ccity_officalDetail_navMenu_list_20x20_@2x.png */; };
@@ -249,6 +259,20 @@
 		9864EB7620C7E842006C281C /* CCityAppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCityAppInfo.h; sourceTree = "<group>"; };
 		9864EB7720C7E843006C281C /* CCityAppInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCityAppInfo.m; sourceTree = "<group>"; };
 		9864EB7920C7EEC8006C281C /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		98DE015C20E472950064178D /* CCityAddressListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCityAddressListVC.h; sourceTree = "<group>"; };
+		98DE015D20E472950064178D /* CCityAddressListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CCityAddressListVC.m; sourceTree = "<group>"; };
+		98DE015F20E47E510064178D /* NSDictionary+CCLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+CCLog.h"; sourceTree = "<group>"; };
+		98DE016020E47E510064178D /* NSDictionary+CCLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+CCLog.m"; sourceTree = "<group>"; };
+		98DE016220E4CBF90064178D /* CCityAddressDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCityAddressDetailVC.h; sourceTree = "<group>"; };
+		98DE016320E4CBF90064178D /* CCityAddressDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CCityAddressDetailVC.m; sourceTree = "<group>"; };
+		98DE01FB20E4E19F0064178D /* ccity_root_txl_30x30_@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ccity_root_txl_30x30_@3x.png"; path = "LFOA/Images/Icons/ccity_root_txl_30x30_@3x.png"; sourceTree = SOURCE_ROOT; };
+		98DE01FC20E4E19F0064178D /* ccity_root_txl_30x30_@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ccity_root_txl_30x30_@2x.png"; path = "LFOA/Images/Icons/ccity_root_txl_30x30_@2x.png"; sourceTree = SOURCE_ROOT; };
+		98DE01FF20E4E8320064178D /* user_tel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "user_tel@3x.png"; path = "LFOA/Images/Icons/user_tel@3x.png"; sourceTree = SOURCE_ROOT; };
+		98DE020020E4E8320064178D /* user_tel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "user_tel@2x.png"; path = "LFOA/Images/Icons/user_tel@2x.png"; sourceTree = SOURCE_ROOT; };
+		98DE020120E4E8320064178D /* user_mobile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "user_mobile@2x.png"; path = "LFOA/Images/Icons/user_mobile@2x.png"; sourceTree = SOURCE_ROOT; };
+		98DE020220E4E8330064178D /* user_mobile@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "user_mobile@3x.png"; path = "LFOA/Images/Icons/user_mobile@3x.png"; sourceTree = SOURCE_ROOT; };
+		98DE020720E5D5CD0064178D /* CCityAddressSearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCityAddressSearchVC.h; sourceTree = "<group>"; };
+		98DE020820E5D5CD0064178D /* CCityAddressSearchVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CCityAddressSearchVC.m; sourceTree = "<group>"; };
 		A219BA9C17E512E01CE52B62 /* Pods-NotificationService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NotificationService/Pods-NotificationService.debug.xcconfig"; sourceTree = "<group>"; };
 		D3EA8E09DFDEA012EA839BC2 /* libPods-NotificationService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationService.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1072A2D1F345EF1005E4CB0 /* CCityOfficalDocNavMenuBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCityOfficalDocNavMenuBtn.h; sourceTree = "<group>"; };
@@ -674,6 +698,12 @@
 				F11595851F2C6EDD00519E21 /* CCityMoreVC.m */,
 				F11595871F2C6F0B00519E21 /* CCityApproveVC.h */,
 				F11595881F2C6F0B00519E21 /* CCityApproveVC.m */,
+				98DE015C20E472950064178D /* CCityAddressListVC.h */,
+				98DE015D20E472950064178D /* CCityAddressListVC.m */,
+				98DE020720E5D5CD0064178D /* CCityAddressSearchVC.h */,
+				98DE020820E5D5CD0064178D /* CCityAddressSearchVC.m */,
+				98DE016220E4CBF90064178D /* CCityAddressDetailVC.h */,
+				98DE016320E4CBF90064178D /* CCityAddressDetailVC.m */,
 				F115958A1F2C6F1C00519E21 /* CCityUserCenterVC.h */,
 				F115958B1F2C6F1C00519E21 /* CCityUserCenterVC.m */,
 				F14E4B8B1FB3DC8D00C08554 /* CCityAMapVC.h */,
@@ -820,6 +850,12 @@
 		F161CDAC1F2ED28000057254 /* rootImages */ = {
 			isa = PBXGroup;
 			children = (
+				98DE020120E4E8320064178D /* user_mobile@2x.png */,
+				98DE020220E4E8330064178D /* user_mobile@3x.png */,
+				98DE020020E4E8320064178D /* user_tel@2x.png */,
+				98DE01FF20E4E8320064178D /* user_tel@3x.png */,
+				98DE01FC20E4E19F0064178D /* ccity_root_txl_30x30_@2x.png */,
+				98DE01FB20E4E19F0064178D /* ccity_root_txl_30x30_@3x.png */,
 				F11595BC1F2C8A1200519E21 /* ccity_root_more_40x40_@3x.png */,
 				F11595BD1F2C8A1200519E21 /* ccity_root_more_40x40_@2x.png */,
 				F11595B81F2C897200519E21 /* ccity_root_userCenter_30x30_@3x.png */,
@@ -962,6 +998,8 @@
 		F1B4F17B1F2B2A1E00AB8823 /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				98DE015F20E47E510064178D /* NSDictionary+CCLog.h */,
+				98DE016020E47E510064178D /* NSDictionary+CCLog.m */,
 				F1B4F1831F2B2BC700AB8823 /* PrefixHeader.pch */,
 				F1B4F1841F2B2CEB00AB8823 /* CCityColors.h */,
 				F1B4F1851F2B2CFC00AB8823 /* CCitySize.h */,
@@ -1287,6 +1325,7 @@
 				F11595BF1F2C8A1200519E21 /* ccity_root_more_40x40_@2x.png in Resources */,
 				F1FE3D701F42E6D200848FDD /* ccity_officalList_fileList_dir_closed_50x50_@3x.png in Resources */,
 				F1FE3D7F1F42EE9900848FDD /* ccity_Offical_detailList_fileType_dwg_50x50@3x.png in Resources */,
+				98DE01FD20E4E19F0064178D /* ccity_root_txl_30x30_@3x.png in Resources */,
 				F135583D1F3D8A4E00FDE061 /* ccity_offical_doc_reciveRead_44x44_@1x.png in Resources */,
 				F1072A3E1F34732F005E4CB0 /* ccity_officalDetail_navMenu_log_20x20@1x.png in Resources */,
 				F1082E5D1F32F4E20008511C /* ccity_nav_menu_30x30_@2x.png in Resources */,
@@ -1295,6 +1334,7 @@
 				F1B4F1721F2B29D800AB8823 /* LaunchScreen.storyboard in Resources */,
 				F1082E571F32EDAE0008511C /* ccity_nav_back_30x30_@2x.png in Resources */,
 				F1FE3D541F42796F00848FDD /* ccity_Offical_detailList_fileType_general_50x50@1x.png in Resources */,
+				98DE020520E4E8330064178D /* user_mobile@2x.png in Resources */,
 				F1F0B5171F43E91C00917F32 /* ccity_login_userName_50x50_@1x.png in Resources */,
 				F11595BE1F2C8A1200519E21 /* ccity_root_more_40x40_@3x.png in Resources */,
 				F1F586821F3C60A400592086 /* ccity_offical_doc_reciveRead_44x44_@2x.png in Resources */,
@@ -1320,6 +1360,7 @@
 				F11595BA1F2C897200519E21 /* ccity_root_userCenter_30x30_@3x.png in Resources */,
 				F11595A51F2C86E000519E21 /* ccity_root_approal_30x30_@2x.png in Resources */,
 				F1F0B52B1F43EC4E00917F32 /* ccity_login_unselect_15x15@2x.png in Resources */,
+				98DE020320E4E8330064178D /* user_tel@3x.png in Resources */,
 				F1E477701F39E2C100679C92 /* ccity_arrow_right_44x44_@3x.png in Resources */,
 				F1E477711F39E2C100679C92 /* ccity_arrow_right_44x44_@2x.png in Resources */,
 				F1FE3D6A1F42E69000848FDD /* ccity_officalList_fileList_dir_open_44x44_@3x.png in Resources */,
@@ -1346,16 +1387,19 @@
 				9864EB7A20C7EEC8006C281C /* logo.png in Resources */,
 				F1848B1D1F3806CD00EC927D /* ccity_officalDetail_opened_24x24@2x.png in Resources */,
 				F14F7B381F3F1978000C736A /* ccity_offical_sendDoc_addPerson_50x50_@3x.png in Resources */,
+				98DE020620E4E8330064178D /* user_mobile@3x.png in Resources */,
 				F1FE3D581F42796F00848FDD /* ccity_Offical_detailList_fileType_pdf_50x50@2x.png in Resources */,
 				F14F7B3A1F3F1978000C736A /* ccity_offical_sendDoc_addPerson_50x50_@1x.png in Resources */,
 				F1FE3D8E1F431CDD00848FDD /* ccity_login_logo_347x347.png in Resources */,
 				F1FE3D591F42796F00848FDD /* ccity_Offical_detailList_fileType_pdf_50x50@3x.png in Resources */,
 				F1FE3D551F42796F00848FDD /* ccity_Offical_detailList_fileType_general_50x50@2x.png in Resources */,
+				98DE01FE20E4E19F0064178D /* ccity_root_txl_30x30_@2x.png in Resources */,
 				F1848B1E1F3806CD00EC927D /* ccity_officalDetail_opened_24x24@1x.png in Resources */,
 				F1FE3D5B1F42796F00848FDD /* ccity_Offical_detailList_fileType_text_50x50@2x.png in Resources */,
 				F1072A4D1F34A3FD005E4CB0 /* ccity_officalDetail_add_24x24@3x.png in Resources */,
 				F14F7B3D1F3F1978000C736A /* ccity_offical_sendDoc_node_50x50_@1x.png in Resources */,
 				F1072A341F347223005E4CB0 /* ccity_officalDetail_navMenu_list_20x20_@2x.png in Resources */,
+				98DE020420E4E8330064178D /* user_tel@2x.png in Resources */,
 				9864EB6B20C53D47006C281C /* CCHuiqianDetailCell.xib in Resources */,
 				F1072A331F347223005E4CB0 /* ccity_officalDetail_navMenu_list_20x20_@3x.png in Resources */,
 				F14F7B391F3F1978000C736A /* ccity_offical_sendDoc_addPerson_50x50_@2x.png in Resources */,
@@ -1518,6 +1562,7 @@
 				F1C803F41F2F6B25007F43DC /* CCitySegmentBtn.m in Sources */,
 				F1E0C8541F74A689001AFB0B /* CCityMeetingDeitalVC.m in Sources */,
 				F115958C1F2C6F1C00519E21 /* CCityUserCenterVC.m in Sources */,
+				98DE015E20E472950064178D /* CCityAddressListVC.m in Sources */,
 				F11595831F2C6EC600519E21 /* CCityOfficalDocVC.m in Sources */,
 				F1848B211F38475C00EC927D /* CCityOfficalDocDetailModel.m in Sources */,
 				F132753C1FDB7A1800BF5018 /* CCityMainMessageVC.m in Sources */,
@@ -1535,9 +1580,11 @@
 				F14F7B2E1F3ED9AE000C736A /* CCityOfficalDetailPersonListCell.m in Sources */,
 				F11EBB1B1F6B77FC00002A88 /* CCityImageTypeManager.m in Sources */,
 				9864EB7820C7E843006C281C /* CCityAppInfo.m in Sources */,
+				98DE020920E5D5CD0064178D /* CCityAddressSearchVC.m in Sources */,
 				F17C2D551F45729D0017379F /* CCityOfficalDetailProListVC.m in Sources */,
 				F113377C1F58E80F00705F21 /* CCityDatePickerVC.m in Sources */,
 				F1E477811F39F12400679C92 /* CCityOfficalDetailDocListView.m in Sources */,
+				98DE016420E4CBF90064178D /* CCityAddressDetailVC.m in Sources */,
 				F13275421FDB7D1E00BF5018 /* CCityMainMessageCell.m in Sources */,
 				F1ABD8D81F74E84B00A008B2 /* CCityNewsModel.m in Sources */,
 				F1C2AF151F466F66002246D8 /* CCityOfficalDetailProTreeCell.m in Sources */,
@@ -1559,6 +1606,7 @@
 				F1082E4C1F32CF3C0008511C /* CCityOfficalDocDetailVC.m in Sources */,
 				F1C2AF1B1F46950E002246D8 /* CCityOfficalProLogCell.m in Sources */,
 				F12A63801F60DF3100DA7188 /* CCityHomeModel.m in Sources */,
+				98DE016120E47E510064178D /* NSDictionary+CCLog.m in Sources */,
 				F1C2AF181F467CCB002246D8 /* CCityOfficalProTreeModel.m in Sources */,
 				F12A63991F6149B900DA7188 /* CCityTriangleView.m in Sources */,
 				F13F07881F68D1A6001C5F21 /* CCityAppendixView.m in Sources */,
@@ -1733,6 +1781,7 @@
 			baseConfigurationReference = FB4B1775394FEFD165E4231B /* Pods-LFOA.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_ENTITLEMENTS = LFOA/LFOA.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1755,6 +1804,7 @@
 			baseConfigurationReference = 74881A20AA0A8B0BDC97F14D /* Pods-LFOA.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_ENTITLEMENTS = LFOA/LFOA.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

@@ -19,7 +19,7 @@
 #import "CCityMainMessageVC.h"
 #import "CCitySecurity.h"
 #import "CCityNoficManager.h"
-
+#import "CCityAddressListVC.h"
 @interface CCityTabBarController ()<UITabBarControllerDelegate>
 
 @end
@@ -53,10 +53,9 @@
     _home = [[CCityHomeVC alloc]init];
     _home.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"首页" image:[UIImage imageNamed:@"ccity_root_home_30x30_"] tag:100];
     
-//    CCityOfficalDocVC* approvc = [[CCityOfficalDocVC alloc]initWithItmes:@[@"待办箱",@"已办箱",@"收阅箱"]];
-//    approvc.mainStyle = CCityOfficalMainSPStyle;
-//    approvc.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"审批" image:[UIImage imageNamed:@"ccity_root_approal_30x30_"] tag:101];
-//    approvc.title = @"审批";
+    CCityAddressListVC * addlistVC = [[CCityAddressListVC alloc]init];
+    addlistVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"通讯录" image:[UIImage imageNamed:@"ccity_root_txl_30x30_"] tag:101];
+    addlistVC.title = @"通讯录";
     
     CCityUserCenterVC* userCenter = [[CCityUserCenterVC alloc]init];
     userCenter.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"我的" image:[UIImage imageNamed:@"ccity_root_userCenter_30x30_"] tag:103];
@@ -67,7 +66,7 @@
     officalDoc.title = @"公文";
     officalDoc.mainStyle = CCityOfficalMainDocStyle;
     self.delegate = self;
-    NSArray* vcArr = @[_home, officalDoc ,userCenter];
+    NSArray* vcArr = @[_home, officalDoc , addlistVC, userCenter];
     
     NSMutableArray* navArr = [NSMutableArray arrayWithCapacity:vcArr.count];
     

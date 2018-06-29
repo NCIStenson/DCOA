@@ -9,6 +9,10 @@
 #ifndef CCitySize_h
 #define CCitySize_h
 
+#define SCREEN_HEIGHT   [[UIScreen mainScreen] bounds].size.height
+#define SCREEN_WIDTH     [[UIScreen mainScreen] bounds].size.width
+#define kCURRENTASPECT SCREEN_WIDTH / 375.0f
+
 #define CCITY_MAIN_FONT_SIZE 14
 #define CCITY_NAV_FONT_SIZE  18.f
 
