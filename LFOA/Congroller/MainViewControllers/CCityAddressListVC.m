@@ -134,6 +134,7 @@
 //    [_tableView registerClass:[CCityMainTaskSearchCell class] forCellReuseIdentifier:ccityMainTaskSerachCellReuseId];
 //    [_tableView registerClass:[CCityMainTasekSearchResultCell class] forCellReuseIdentifier:ccityMainTaskSerachResultCellReuseId];
     
+    _tableView.separatorColor = CCITY_RGB_COLOR(0, 0, 0, .1f);
     _tableView.sectionFooterHeight = .1f;
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -211,7 +212,7 @@
     UIButton * titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [titleBtn setTitleColor:MAIN_TEXT_COLOR forState:UIControlStateNormal];
     titleBtn.frame = CGRectMake(40, 0, SCREEN_WIDTH - 60, kCellHeight);
-    [titleBtn setImage:[UIImage imageNamed:@"ccity_arrow_toBottom_30x30_"] forState:UIControlStateNormal];
+    [titleBtn setImage:[UIImage imageNamed:@"icon_txl_arrow"] forState:UIControlStateNormal];
     [titleBtn setTitle:[NSString stringWithFormat:@"  %@",groupModel.groupTitle]  forState:UIControlStateNormal];
     [cell.contentView addSubview:titleBtn];
     titleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -239,7 +240,7 @@
             [titleBtn addTarget:self action:@selector(personBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             if (i != groupModel.personItems.count - 1) {
                 CAShapeLayer* layer = [self line];
-                layer.backgroundColor = CCITY_RGB_COLOR(0, 0, 0, .2f).CGColor;
+                layer.backgroundColor = CCITY_RGB_COLOR(0, 0, 0, .1f).CGColor;
                 layer.frame = CGRectMake(0, 43.5, self.view.bounds.size.width, .5f);
                 
                 [titleBtn.layer addSublayer:layer];
@@ -258,7 +259,7 @@
     UIButton * titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [titleBtn setTitleColor:MAIN_TEXT_COLOR forState:UIControlStateNormal];
     titleBtn.frame = CGRectMake(20, 0, SCREEN_WIDTH - 40, kCellHeight);
-    [titleBtn setImage:[UIImage imageNamed:@"ccity_arrow_toBottom_30x30_"] forState:UIControlStateNormal];
+    [titleBtn setImage:[UIImage imageNamed:@"icon_txl_arrow"] forState:UIControlStateNormal];
     [titleBtn setTitle:[NSString stringWithFormat:@"  %@",orgModel.groupTitle] forState:UIControlStateNormal];
     [headerView addSubview:titleBtn];
     [titleBtn addTarget:self action:@selector(sectionBtnClick:) forControlEvents:UIControlEventTouchUpInside];
