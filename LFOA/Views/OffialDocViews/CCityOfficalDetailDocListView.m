@@ -184,6 +184,14 @@ static NSString* officalDetailDocListCellReuseId = @"officalDetailDocListCellReu
          sectionTitleLabel.text = [NSString stringWithFormat:@"%@ (%lu)", model.dirName, (unsigned long)model.filesArr.count];
      }
     
+    UIButton * uploadBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    uploadBtn.tag = 1000 + section;
+    uploadBtn.frame = CGRectMake(SCREEN_WIDTH - 70, 0, 50, 50.0f);
+    [uploadBtn setImage:[UIImage imageNamed:@"ccity_officalList_fileList_upload"] forState:UIControlStateNormal];
+    [uploadBtn addTarget:self action:@selector(chooseImageToUpload:) forControlEvents:UIControlEventTouchUpInside];
+    
+//    [sectionHeader addSubview:uploadBtn];
+
     [sectionHeader addSubview:sectionHeader.imageView];
     [sectionHeader addSubview:sectionTitleLabel];
     
@@ -280,6 +288,15 @@ static NSString* officalDetailDocListCellReuseId = @"officalDetailDocListCellReu
         CCityOfficalFileViewerVC* viewVC = [[CCityOfficalFileViewerVC alloc]initWithUrl:fileUrls[0] title:fileName];
         
         if (self.pushToFileViewerVC) {  self.pushToFileViewerVC(viewVC);    }
+    }
+}
+
+-(void)chooseImageToUpload:(UIButton *)btn
+{
+    CCityOfficalDetailFileListModel* model = _dataArr[btn.tag - 1000];
+    
+    if ([self.delegate respondsToSelector:@selector(goUploadFileVC:)]) {
+        [self.delegate goUploadFileVC:model];
     }
 }
 

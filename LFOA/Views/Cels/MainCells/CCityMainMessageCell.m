@@ -167,7 +167,7 @@
             _tailView.hidden = YES;
         }
         
-        NSAttributedString* truncationToken = [NSAttributedString yy_attachmentStringWithContent:_tailView contentMode:UIViewContentModeBottomLeft attachmentSize:_tailView.bounds.size alignToFont:_contentLabel.font alignment:YYTextVerticalAlignmentCenter];
+        NSAttributedString* truncationToken = [NSAttributedString attachmentStringWithContent:_tailView contentMode:UIViewContentModeBottomLeft attachmentSize:_tailView.bounds.size alignToFont:_contentLabel.font alignment:YYTextVerticalAlignmentCenter];
         _contentLabel.truncationToken = truncationToken;
         
     } else {

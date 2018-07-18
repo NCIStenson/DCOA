@@ -9,11 +9,14 @@
 #import "CCityBaseTableViewCell.h"
 #import <BEMCheckBox.h>
 #import "CCityOffialSendPersonListModel.h"
+#import "CCityOfficalDocModel.h"
 
 @interface CCityOfficalDetailPersonListCell : CCityBaseTableViewCell
 
 @property(nonatomic, strong)BEMCheckBox* checkBox;
 
 @property(nonatomic, strong)CCityOfficalSendPersonDetailModel* model;
+
+@property(nonatomic, strong)CCityOfficalNewProjectModel * projectModel;
 
 @end

@@ -20,13 +20,16 @@ pod 'MJRefresh'
 pod 'SDWebImage', '~> 4.0'
 pod 'BEMCheckBox'
 pod 'MarqueeLabel'
-pod 'YYText'
+#pod 'YYText'
 pod 'JSBadgeView'
 
 pod 'UITableView+FDTemplateLayoutCell'
 pod 'FDFullscreenPopGesture'
 pod 'SDCycleScrollView','~> 1.66'
 pod 'TTTAttributedLabel'
+
+pod 'YYKit', '~> 1.0.7'
+pod 'ZLPhotoBrowser', '~> 2.4.9'
 
 end
 

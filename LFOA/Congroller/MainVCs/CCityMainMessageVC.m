@@ -9,7 +9,6 @@
 #import "CCityMainMessageVC.h"
 #import "CCityNavBar.h"
 #import "CCityMainMessageCell.h"
-#import <YYText.h>
 #import "CCityOfficalDocDetailVC.h"
 #import "CCityMeetingDeitalVC.h"
 #import <GTSDK/GeTuiSdk.h>
@@ -71,7 +70,7 @@ static NSString* cellReuseId = @"cellReuseId";
     label.numberOfLines = 0.f;
     label.font = [UIFont systemFontOfSize:15.f];
     label.text = model.content;
-    label.truncationToken = [NSAttributedString yy_attachmentStringWithContent:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)] contentMode:UIViewContentModeCenter attachmentSize:CGSizeMake(20, 20) alignToFont:label.font alignment:YYTextVerticalAlignmentCenter];
+    label.truncationToken = [NSAttributedString attachmentStringWithContent:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)] contentMode:UIViewContentModeCenter attachmentSize:CGSizeMake(20, 20) alignToFont:label.font alignment:YYTextVerticalAlignmentCenter];
     label.frame = CGRectMake(0, 0, self.view.bounds.size.width - 60.f, MAXFLOAT);
     [label sizeToFit];
     return label.bounds.size.height + 20.f + 20.f;

@@ -17,6 +17,8 @@
 		9864EB7520C7E809006C281C /* CCLeftBarBtnItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9864EB7320C7E808006C281C /* CCLeftBarBtnItem.m */; };
 		9864EB7820C7E843006C281C /* CCityAppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9864EB7720C7E843006C281C /* CCityAppInfo.m */; };
 		9864EB7A20C7EEC8006C281C /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9864EB7920C7EEC8006C281C /* logo.png */; };
+		9898BCED20F9E6B300E21CF6 /* CCityUploadFileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9898BCEB20F9E6B200E21CF6 /* CCityUploadFileVC.m */; };
+		9898BCEE20F9E6B300E21CF6 /* CCityNewProjectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9898BCEC20F9E6B200E21CF6 /* CCityNewProjectVC.m */; };
 		98DE015E20E472950064178D /* CCityAddressListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 98DE015D20E472950064178D /* CCityAddressListVC.m */; };
 		98DE016120E47E510064178D /* NSDictionary+CCLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 98DE016020E47E510064178D /* NSDictionary+CCLog.m */; };
 		98DE016420E4CBF90064178D /* CCityAddressDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 98DE016320E4CBF90064178D /* CCityAddressDetailVC.m */; };
@@ -262,6 +264,10 @@
 		9864EB7620C7E842006C281C /* CCityAppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCityAppInfo.h; sourceTree = "<group>"; };
 		9864EB7720C7E843006C281C /* CCityAppInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCityAppInfo.m; sourceTree = "<group>"; };
 		9864EB7920C7EEC8006C281C /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		9898BCE920F9E6B200E21CF6 /* CCityNewProjectVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCityNewProjectVC.h; sourceTree = "<group>"; };
+		9898BCEA20F9E6B200E21CF6 /* CCityUploadFileVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCityUploadFileVC.h; sourceTree = "<group>"; };
+		9898BCEB20F9E6B200E21CF6 /* CCityUploadFileVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCityUploadFileVC.m; sourceTree = "<group>"; };
+		9898BCEC20F9E6B200E21CF6 /* CCityNewProjectVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCityNewProjectVC.m; sourceTree = "<group>"; };
 		98DE015C20E472950064178D /* CCityAddressListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCityAddressListVC.h; sourceTree = "<group>"; };
 		98DE015D20E472950064178D /* CCityAddressListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CCityAddressListVC.m; sourceTree = "<group>"; };
 		98DE015F20E47E510064178D /* NSDictionary+CCLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+CCLog.h"; sourceTree = "<group>"; };
@@ -685,6 +691,10 @@
 				F17C2D541F45729D0017379F /* CCityOfficalDetailProListVC.m */,
 				F1F272001F5948B400AB33FF /* CCityScrollViewVC.h */,
 				F1F272011F5948B400AB33FF /* CCityScrollViewVC.m */,
+				9898BCE920F9E6B200E21CF6 /* CCityNewProjectVC.h */,
+				9898BCEC20F9E6B200E21CF6 /* CCityNewProjectVC.m */,
+				9898BCEA20F9E6B200E21CF6 /* CCityUploadFileVC.h */,
+				9898BCEB20F9E6B200E21CF6 /* CCityUploadFileVC.m */,
 			);
 			path = OfficalDocVCs;
 			sourceTree = "<group>";
@@ -1469,7 +1479,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LFOA/Pods-LFOA-resources.sh",
-				$PODS_CONFIGURATION_BUILD_DIR/JSBadgeView/JSBadgeView.bundle,
+				"$PODS_CONFIGURATION_BUILD_DIR/JSBadgeView/JSBadgeView.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 				"${PODS_ROOT}/TSMessages/Pod/Assets/NotificationBackgroundError.png",
@@ -1489,6 +1499,9 @@
 				"${PODS_ROOT}/TSMessages/Pod/Assets/NotificationButtonBackground.png",
 				"${PODS_ROOT}/TSMessages/Pod/Assets/NotificationButtonBackground@2x.png",
 				"${PODS_ROOT}/TSMessages/Pod/Assets/TSMessagesDefaultDesign.json",
+				"${PODS_ROOT}/ZLPhotoBrowser/PhotoBrowser/resource/ZLPhotoActionSheet.xib",
+				"${PODS_ROOT}/ZLPhotoBrowser/PhotoBrowser/resource/ZLPhotoBrowserCell.xib",
+				"${PODS_ROOT}/ZLPhotoBrowser/PhotoBrowser/resource/ZLPhotoBrowser.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -1528,6 +1541,7 @@
 				F1072A2F1F345EF1005E4CB0 /* CCityOfficalDocNavMenuBtn.m in Sources */,
 				F1C803ED1F2F3EB2007F43DC /* CCitySecurity.m in Sources */,
 				F1082E661F330CD20008511C /* CCityJSONNetWorkManager.m in Sources */,
+				9898BCED20F9E6B300E21CF6 /* CCityUploadFileVC.m in Sources */,
 				F139DAD91F56A40100149012 /* CCityBaseModel.m in Sources */,
 				F11595861F2C6EDD00519E21 /* CCityMoreVC.m in Sources */,
 				F1D58DEC1F63D50E00754954 /* CCityMainTaskSearchCell.m in Sources */,
@@ -1551,6 +1565,7 @@
 				F11595C81F2CA76600519E21 /* CCityLogInTF.m in Sources */,
 				F1702F331FB68B8F0097621B /* CCityNoficManager.m in Sources */,
 				F1EC76231F319CA900495B9A /* CCityNewsHeaderLabel.m in Sources */,
+				9898BCEE20F9E6B300E21CF6 /* CCityNewProjectVC.m in Sources */,
 				F1B4F1991F2B878800AB8823 /* CCityBaseViewController.m in Sources */,
 				F11595761F2C668A00519E21 /* CCityBaseNavController.m in Sources */,
 				F14E4B8D1FB3DC8D00C08554 /* CCityAMapVC.m in Sources */,

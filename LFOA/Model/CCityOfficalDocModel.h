@@ -24,3 +24,18 @@
 - (instancetype)initWithDic:(NSDictionary*)dic;
 
 @end
+
+@interface CCityOfficalNewProjectModel : NSObject
+
+@property(nonatomic, copy) NSString* projectName;
+@property(nonatomic, assign) BOOL isOpen;
+@property(nonatomic, strong) NSArray * detailDataArr;
+
+@property(nonatomic, copy) NSString * proName;
+@property(nonatomic, copy) NSString * proNum;
+@property(nonatomic, assign) BOOL proChecked;
+
+- (instancetype)initWithDic:(NSDictionary*)dic;
+
+@end
+

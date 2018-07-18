@@ -214,6 +214,12 @@ static NSString* ccityOfficalDeitalPersonListCellReuseId = @"ccityOfficalDeitalP
     }
     
     [manager GET:@"service/form/GetAccepter.ashx" parameters:_ids progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSString* state = responseObject[@"status"];
+        if (![state isEqualToString:@"success"]) {
+            [CCityAlterManager showSimpleTripsWithVC:self Str:@"数据请求失败" detail:nil];
+            [SVProgressHUD dismiss];
+            return ;
+        }
 
         NSArray* datasArr = responseObject;
         NSMutableArray* muDataArr = [NSMutableArray arrayWithCapacity:datasArr.count];

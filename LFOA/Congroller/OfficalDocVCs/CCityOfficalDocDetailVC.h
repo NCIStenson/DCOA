@@ -17,6 +17,9 @@
 @property(nonatomic, assign)CCityOfficalDocContentMode conentMode;
 @property(nonatomic, strong)NSIndexPath*               indexPath;
 
+@property (nonatomic,assign)BOOL                       isNewProject; // 是否是新建流程
+@property (nonatomic,strong)NSDictionary*              resultDic; // 新建流程时传入数据
+
 @property(nonatomic, strong)NSString* url;
 @property(nonatomic, assign)BOOL      isEnd;
 /* 取回功能入口在已办箱的详情右上角的弹出菜单   如果是已阅的就不显示如果未阅就显示 */

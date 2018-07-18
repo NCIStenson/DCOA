@@ -92,7 +92,6 @@ typedef NS_ENUM(NSUInteger, CCithMainDetailTaskSearchContentStyle) {
 }
 
 #pragma mark- --- configData
-
 //    search action
 -(void) searchAction {
     

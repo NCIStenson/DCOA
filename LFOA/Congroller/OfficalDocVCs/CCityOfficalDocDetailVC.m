@@ -22,8 +22,10 @@
 #import "XuAlertCon.h"
 #import "CCErrorNoManager.h"
 #import "CCHuiqianDetailVC.h"
+#import "CCityUploadFileVC.h"
+#import "CCityOfficalDocVC.h"
 
-@interface CCityOfficalDocDetailVC ()<CCityOfficalDocDetailDelegate,CCityOffialPersonListDelegate>
+@interface CCityOfficalDocDetailVC ()<CCityOfficalDocDetailDelegate,CCityOffialPersonListDelegate,CCityOfficalDetailDocListViewDelegate>
 
 @end
 static NSString* ccityOfficlaDataExcleReuseId  = @"CCityOfficalDetailDataExcleStyle";
@@ -141,7 +143,7 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
 
 - (void)updataFootViewWithContentHuiQian:(BOOL)isContentHuiQian {
     
-    UIButton* saveBtn = [self getBottomBtnWithTitle:@"保 存" sel:@selector(saveAction)];
+    UIButton* saveBtn = [self getBottomBtnWithTitle:@"保 存" sel:@selector(saveAction:)];
     
     _sendBtn =[self getBottomBtnWithTitle:@"发 送" sel:@selector(sendAction)];
     
@@ -241,7 +243,7 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
 -(CCityOfficalDetailDocListView*) fileListView {
     
     CCityOfficalDetailDocListView* listView = [[CCityOfficalDetailDocListView alloc]initWithUrl:@"service/form/GetMaterialList.ashx" andIds:_docId];
-    
+    listView.delegate = self;
     listView.backgroundColor = [UIColor whiteColor];
     
     return listView;
@@ -576,9 +578,12 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
     }
     
     if (model.style == CCityOfficalDetailDateStyle) {
-        
         NSArray* timesArr = [text componentsSeparatedByString:@"-"];
-        model.value = [NSString stringWithFormat:@"%@/%@/%@",timesArr[0],timesArr[1],timesArr[2]];
+        if(timesArr.count > 0){
+            if (timesArr.count > 2) {
+                model.value = [NSString stringWithFormat:@"%@/%@/%@",timesArr[0],timesArr[1],timesArr[2]];
+            }
+        }
     } else {
         
         model.value = text;
@@ -785,17 +790,18 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
     
     [self.view endEditing:YES];
     
-    //    if (_isNewProject) {
-    //        if([CCUtil isNotNull:self.dataArr]){
-    //            for (int i = 0 ; i < self.dataArr.count; i++) {
-    //                CCityOfficalDocDetailModel* model = self.dataArr[i];
-    //                if (model.value.length > 0) {
-    //                    [self saveMethodWithIndex:i andText:model.value];
-    //                }
-    //            }
-    //        }
-    //    }
-    
+    if (_isNewProject) {
+        if([CCUtil isNotNull:self.dataArr]){
+            for (int i = 0 ; i < self.dataArr.count; i++) {
+                CCityOfficalDocDetailModel* model = self.dataArr[i];
+                if (model.value.length > 0) {
+                    NSLog(@" ===  %@",model.value);
+                    [self saveMethodWithIndex:i andText:model.value];
+                }
+            }
+        }
+    }
+    NSLog(@" ===  %@",_valuesDic);
     if (!_valuesDic.count && !_huiQianStr) {
         if (btn) {
             [SVProgressHUD showInfoWithStatus:@"数据未改变，无需保存"];
@@ -843,7 +849,6 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
                 if (btn) {
                     isFileListSaveSuccess = YES;
                     dispatch_group_leave(groupQueue);
-                    NSLog(@"=======================================");
                 }
             }
             
@@ -911,6 +916,15 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
         if (isHuiQianSaveSuccess && isFileListSaveSuccess) {
             tripStr = @"保存成功";
             [self updataHuiQianUIWithState:isHuiQianAdd];
+        }
+        if (_isNewProject) {
+            for (UIViewController *controller in self.navigationController.viewControllers) {
+                if ([controller isKindOfClass:[CCityOfficalDocVC class]]) {
+                    CCityOfficalDocVC *revise =(CCityOfficalDocVC *)controller;
+                    [self.navigationController popToViewController:revise animated:YES];
+                }
+            }
+            [[NSNotificationCenter defaultCenter]postNotificationName:kNOTI_SAVEINFO_SUCCESS object:nil];
         }
         [CCityAlterManager showSimpleTripsWithVC:self Str:tripStr detail:nil];
     });
@@ -1221,6 +1235,18 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
     NSIndexPath* indexPath = [self.tableView indexPathForCell:cell];
     _editCellFrame = CGRectZero;
     [self saveMethodWithIndex:indexPath.section andText:cell.textView.text];
+}
+
+#pragma mark - CCityOfficalDetailDocListViewDelegate
+
+-(void)goUploadFileVC:(CCityOfficalDetailFileListModel *)model
+{
+    
+    NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithDictionary:_docId];
+    [dic setObject:model.dirName forKey:@"materialFolder"];
+    CCityUploadFileVC * uploadFileVC = [[CCityUploadFileVC alloc]init];
+    uploadFileVC.resultDic = dic;
+    [self.navigationController pushViewController:uploadFileVC animated:YES];
 }
 
 @end

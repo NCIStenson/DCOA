@@ -34,7 +34,11 @@ PODS:
     - HexColors (~> 2.2.0)
   - TTTAttributedLabel (2.0.0)
   - UITableView+FDTemplateLayoutCell (1.6)
-  - YYText (1.0.7)
+  - YYKit (1.0.9):
+    - YYKit/no-arc (= 1.0.9)
+  - YYKit/no-arc (1.0.9)
+  - ZLPhotoBrowser (2.4.9):
+    - SDWebImage
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
@@ -51,7 +55,8 @@ DEPENDENCIES:
   - TSMessages
   - TTTAttributedLabel
   - UITableView+FDTemplateLayoutCell
-  - YYText
+  - YYKit (~> 1.0.7)
+  - ZLPhotoBrowser (~> 2.4.9)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -69,8 +74,9 @@ SPEC CHECKSUMS:
   TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UITableView+FDTemplateLayoutCell: 5c949b4a5059c404b442926c0e80f81d10a2d66f
-  YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
+  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+  ZLPhotoBrowser: 1a5c422e2f621caa79e3689649483ece8ca96381
 
-PODFILE CHECKSUM: 6f9908b505c7f27c49003b3bc8a3dd90d474db39
+PODFILE CHECKSUM: 4a31277423a03360a1df0a5cb50c7cc2665ba51e
 
 COCOAPODS: 1.3.1

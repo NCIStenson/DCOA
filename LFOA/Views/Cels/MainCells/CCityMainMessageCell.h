@@ -16,7 +16,6 @@
 
 #import <UIKit/UIKit.h>
 #import "CCityMessageModel.h"
-#import <YYText.h>
 
 @interface CCityMainMessageCell : UITableViewCell
 
