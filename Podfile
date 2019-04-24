@@ -27,9 +27,8 @@ pod 'UITableView+FDTemplateLayoutCell'
 pod 'FDFullscreenPopGesture'
 pod 'SDCycleScrollView','~> 1.66'
 pod 'TTTAttributedLabel'
-
-pod 'YYKit', '~> 1.0.7'
 pod 'ZLPhotoBrowser', '~> 2.4.9'
+pod 'YYKit', '~> 1.0.7'
 
 end
 

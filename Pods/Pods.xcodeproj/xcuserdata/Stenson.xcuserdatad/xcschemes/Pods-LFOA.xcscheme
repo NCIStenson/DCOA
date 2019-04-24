@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'ED92828D1A7C408369EFD6B0998D7236'
-               BlueprintName = 'Pods-LFOA'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libPods-LFOA.a'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3FC942EDB7D22F4C51484BECA6A07C6E"
+               BlueprintName = "Pods-LFOA"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "libPods-LFOA.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

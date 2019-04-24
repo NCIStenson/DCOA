@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'F080BAAF3F8C60FF2628F018F5D54ABD'
-               BlueprintName = 'TSMessages'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libTSMessages.a'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B3B1C82FF84E6E07626F29182051A1F0"
+               BlueprintName = "TSMessages"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "libTSMessages.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

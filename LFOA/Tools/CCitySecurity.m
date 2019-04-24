@@ -133,4 +133,20 @@
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"ccity_is_show_notific"];
 }
 
++(BOOL)setUserListArr:(NSDictionary *)arr
+{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:arr forKey:@"ccity_address_list"];
+    return [defaults synchronize];
+}
+
++(NSDictionary *)userListArr{
+//    NSMutableArray * jsonObject = [NSMutableArray array];
+//    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ccity_address_list"]) {
+//        jsonObject = [NSJSONSerialization JSONObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:@"ccity_address_list"]
+//                                                     options:NSJSONReadingAllowFragments
+//                                                       error:nil];
+//    }
+    return  [[NSUserDefaults standardUserDefaults] objectForKey:@"ccity_address_list"];
+}
 @end

@@ -70,6 +70,12 @@ static NSString* officalBackLogCellReuseId = @"officalBackLogCellReuseId";
     
     if (self.tableView) {   self.tableView = nil;   }
     
+    UIBarButtonItem* leftBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchAction)];
+    
+    leftBarButtonItem.tintColor = [UIColor blackColor];
+    
+    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
+    
     UIBarButtonItem* rightBarButtonItem ;
     if (_mainStyle == CCityOfficalMainDocStyle) {
         rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"新建公文" style:UIBarButtonItemStylePlain target:self action:@selector(goNewProject)];
@@ -78,27 +84,15 @@ static NSString* officalBackLogCellReuseId = @"officalBackLogCellReuseId";
     }
     [rightBarButtonItem setTintColor:MAIN_BLUE_COLOR];
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
-    
-    
-    UIBarButtonItem* leftBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchAction)];
-    
-    leftBarButtonItem.tintColor = [UIColor blackColor];
-    
-    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(saveDetailInfoSuccess) name:kNOTI_SAVEINFO_SUCCESS object:nil];
 
+    
     if (self.tableView) {
         
         self.tableView = nil;
     }
 }
--(void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNOTI_SAVEINFO_SUCCESS object:nil];
-}
 
 -(void)viewWillAppear:(BOOL)animated {
-    self.navigationController.navigationBar.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
-    self.navigationController.navigationBar.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
     [super viewWillAppear:animated];
 
     if (!parameters) {
@@ -129,6 +123,13 @@ static NSString* officalBackLogCellReuseId = @"officalBackLogCellReuseId";
     }
     
     self.tabBarController.navigationItem.rightBarButtonItem = nil;
+}
+
+-(void)goNewProject{
+    CCityNewProjectVC * newProjectVC = [[CCityNewProjectVC alloc]init];
+    newProjectVC.hidesBottomBarWhenPushed  = YES;
+    newProjectVC.mainStyle = _mainStyle;
+    [self.navigationController pushViewController:newProjectVC animated:YES];
 }
 
 #pragma mark- --- layoutMusubViews
@@ -231,13 +232,6 @@ static NSString* officalBackLogCellReuseId = @"officalBackLogCellReuseId";
     }
     
     return pageIndex;
-}
-
--(void)goNewProject{
-    CCityNewProjectVC * newProjectVC = [[CCityNewProjectVC alloc]init];
-    newProjectVC.hidesBottomBarWhenPushed  = YES;
-    newProjectVC.mainStyle = CCityOfficalMainDocStyle;
-    [self.navigationController pushViewController:newProjectVC animated:YES];
 }
 
 // search bar
@@ -458,17 +452,6 @@ static NSString* officalBackLogCellReuseId = @"officalBackLogCellReuseId";
 }
 
 #pragma mark- --- netWork
--(void)saveDetailInfoSuccess
-{
-    self.segCon.selectedIndex = 0;
-    if (self.mainStyle == CCityOfficalMainDocStyle) {
-        [self segmentedConValueChanged:self.segCon];
-        [self configDataWithURL:BACKLOG_URL];
-    } else {
-        [self segmentedConValueChanged:self.segCon];
-        [self configDataWithURL:SP_BACKLOG_URL];
-    }
-}
 
 - (void)configDataWithURL:(NSString*)url {
     

@@ -24,6 +24,12 @@ static NSString* officalDetailDocListCellReuseId = @"officalDetailDocListCellReu
     UITableView*        _tableView;
     NSMutableArray*     _dataArr;
     NSMutableArray*     _localDataArr;
+    
+    NSMutableArray * _sectionTitleArr;
+    
+    NSString *  _url;
+    NSDictionary *  _ids;
+
 }
 
 - (instancetype)initWithUrl:(NSString*)url andIds:(NSDictionary*)ids
@@ -31,13 +37,29 @@ static NSString* officalDetailDocListCellReuseId = @"officalDetailDocListCellReu
     self = [super init];
     
     if (self) {
-        
+        _url = url;
+        _ids = ids;
+        _sectionTitleArr = [NSMutableArray array];
+
         [self layoutMySubViews];
         
         [self configDataWithUrl:url andIds:ids];
-        
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadViewData) name:kUPLOADIMAGE_SUCCESS object:nil];
+
     }
     return self;
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:kUPLOADIMAGE_SUCCESS object:nil];
+}
+
+-(void)reloadViewData{
+    _dataArr = [NSMutableArray array];
+    _localDataArr = [NSMutableArray array];
+    _sectionTitleArr =  [NSMutableArray array];
+    [self configDataWithUrl:_url andIds:_ids];
 }
 
 -(void)configDataWithUrl:(NSString*)url andIds:(NSDictionary*)ids{
@@ -190,7 +212,7 @@ static NSString* officalDetailDocListCellReuseId = @"officalDetailDocListCellReu
     [uploadBtn setImage:[UIImage imageNamed:@"ccity_officalList_fileList_upload"] forState:UIControlStateNormal];
     [uploadBtn addTarget:self action:@selector(chooseImageToUpload:) forControlEvents:UIControlEventTouchUpInside];
     
-//    [sectionHeader addSubview:uploadBtn];
+    [sectionHeader addSubview:uploadBtn];
 
     [sectionHeader addSubview:sectionHeader.imageView];
     [sectionHeader addSubview:sectionTitleLabel];

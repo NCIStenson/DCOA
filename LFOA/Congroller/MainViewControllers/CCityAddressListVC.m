@@ -12,6 +12,7 @@
 #import "CCityOffialSendPersonListModel.h"
 #import "CCityAddressDetailVC.h"
 #import "CCityAddressSearchVC.h"
+#import "CCitySecurity.h"
 @interface CCityAddressListVC ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 
 @property (nonatomic,strong) UITableView * tableView;
@@ -57,6 +58,18 @@
     
     [SVProgressHUD show];
     
+    if ([CCitySecurity userListArr] ) {
+        NSArray* result = [CCitySecurity userListArr][@"content"];
+        _dataArr = [NSMutableArray array];
+        for (int i = 0; i < result.count; i ++) {
+            CCityAddressListPersonListModel * listModel = [[CCityAddressListPersonListModel alloc]initWithDic:result[i]];
+            [_dataArr addObject:listModel];
+        }
+        
+        [_tableView reloadData];
+        return;
+    }
+    
     AFHTTPSessionManager* manager = [CCityJSONNetWorkManager sessionManager];
     
     [manager GET:@"service/user/UserList.ashx" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -66,6 +79,7 @@
             [CCityAlterManager showSimpleTripsWithVC:self Str:@"数据请求失败" detail:nil];
             return ;
         }
+        [CCitySecurity setUserListArr:responseObject];
         
         NSArray* result = responseObject[@"content"];
         _dataArr = [NSMutableArray array];
@@ -73,7 +87,8 @@
             CCityAddressListPersonListModel * listModel = [[CCityAddressListPersonListModel alloc]initWithDic:result[i]];
             [_dataArr addObject:listModel];
         }
-
+        
+        
         [_tableView reloadData];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

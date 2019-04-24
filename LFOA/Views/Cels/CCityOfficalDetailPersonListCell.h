@@ -17,6 +17,7 @@
 
 @property(nonatomic, strong)CCityOfficalSendPersonDetailModel* model;
 
+@property(nonatomic, strong)NSArray * modelArr;
 @property(nonatomic, strong)CCityOfficalNewProjectModel * projectModel;
 
 @end

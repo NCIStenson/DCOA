@@ -12,6 +12,9 @@
 
 @property(nonatomic, copy)void(^pushToNextVC)(UIViewController* viewController);
 @property(nonatomic, copy)void(^pushToRoot)(void);
+@property(nonatomic, copy)void(^niwenBtnClick)(void);
+@property(nonatomic, copy)void(^readBtnClick)(void);
+@property(nonatomic, copy)void(^groupBtnClick)(void);
 
 @property(nonatomic, copy)   NSDictionary* ids;
 @property(nonatomic, assign) NSInteger     contentMode;

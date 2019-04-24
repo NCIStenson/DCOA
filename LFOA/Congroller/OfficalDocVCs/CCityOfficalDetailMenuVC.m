@@ -54,7 +54,7 @@
         
         _menuView = [self menuView];
         
-        _menuView.frame = CGRectMake(self.view.bounds.size.width - 140.f, 64, 130, 0.f);
+        _menuView.frame = CGRectMake(self.view.bounds.size.width - 170.f, 64, 160, 0.f);
         
         _menuView.alpha = 0.f;
         [self.view addSubview:_menuView];
@@ -69,10 +69,10 @@
         
         if ( _contentMode == 0) {
             
-            menuFrame.size.height = 150;
+            menuFrame.size.height = 300;
         } else {
             
-            menuFrame.size.height = 100;
+            menuFrame.size.height = 250;
         }
         
         _menuView.frame = menuFrame;
@@ -116,7 +116,6 @@
     [docLogBtn setImage:[UIImage imageNamed:@"ccity_officalDetail_navMenu_log_20x20"] forState:UIControlStateNormal];
     
     if (_style == CCityOfficalMainSPStyle) {
-        
         [docListBtn setTitle:@" 项目表单" forState:UIControlStateNormal];
         //        [docTreeBtn setTitle:@" 项目树" forState:UIControlStateNormal];
         [docLogBtn setTitle:@" 项目日志" forState:UIControlStateNormal];
@@ -127,10 +126,32 @@
         [docLogBtn setTitle:@" 公文日志" forState:UIControlStateNormal];
     }
     
+    CCityOfficalDocNavMenuBtn* niwenBtn = [CCityOfficalDocNavMenuBtn buttonWithType:UIButtonTypeCustom];
+    niwenBtn.tag = 1506;
+    [niwenBtn addTarget:self action:@selector(menuBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [niwenBtn setImage:[UIImage imageNamed:@"menu_item_niwen"] forState:UIControlStateNormal];
+    [niwenBtn setTitle:@" 拟文" forState:UIControlStateNormal];
+
+    CCityOfficalDocNavMenuBtn* readBtn = [CCityOfficalDocNavMenuBtn buttonWithType:UIButtonTypeCustom];
+    readBtn.tag = 1507;
+    [readBtn addTarget:self action:@selector(menuBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [readBtn setImage:[UIImage imageNamed:@"menu_item_cy"] forState:UIControlStateNormal];
+    [readBtn setTitle:@" 传阅" forState:UIControlStateNormal];
+
+    CCityOfficalDocNavMenuBtn* groupReadBtn = [CCityOfficalDocNavMenuBtn buttonWithType:UIButtonTypeCustom];
+    groupReadBtn.tag = 1508;
+    [groupReadBtn addTarget:self action:@selector(menuBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [groupReadBtn setImage:[UIImage imageNamed:@"menu_item_cy_by_group"] forState:UIControlStateNormal];
+    [groupReadBtn setTitle:@" 分组传阅" forState:UIControlStateNormal];
+
+    
     [menuView addSubview:docListBtn];
     //    [menuView addSubview:docTreeBtn];
     [menuView addSubview:docLogBtn];
-    
+    [menuView addSubview:niwenBtn];
+    [menuView addSubview:readBtn];
+    [menuView addSubview:groupReadBtn];
+
     NSArray* viewsArr;
     
     if ( _contentMode == 0) {
@@ -143,11 +164,11 @@
         [menuView addSubview:goBackBtn];
         
         //        viewsArr = @[goBackBtn, docListBtn, docTreeBtn, docLogBtn];
-        viewsArr = @[goBackBtn, docListBtn, docLogBtn];
+        viewsArr = @[goBackBtn, docListBtn, docLogBtn,niwenBtn,readBtn,groupReadBtn];
     } else {
         
         //        viewsArr = @[docListBtn, docTreeBtn, docLogBtn];
-        viewsArr = @[docListBtn, docLogBtn];
+        viewsArr = @[docListBtn, docLogBtn,niwenBtn,readBtn,groupReadBtn];
     }
     
     
@@ -160,7 +181,7 @@
         [menuView addSubview:quhuiBtn];
         
         //        viewsArr = @[goBackBtn, docListBtn, docTreeBtn, docLogBtn];
-        viewsArr = @[quhuiBtn, docListBtn, docLogBtn];
+        viewsArr = @[quhuiBtn, docListBtn, docLogBtn,readBtn,groupReadBtn];
     }
     
     
@@ -222,6 +243,19 @@
             
         case 1505:
             [self caseCallBack];
+            break;
+            
+        case 1506:
+            self.niwenBtnClick();
+            [self dismissViewControllerAnimated:NO completion:nil];
+            break;
+        case 1507:
+            self.readBtnClick();
+            [self dismissViewControllerAnimated:NO completion:nil];
+            break;
+        case 1508:
+            self.groupBtnClick();
+            [self dismissViewControllerAnimated:NO completion:nil];
             break;
             
         default:

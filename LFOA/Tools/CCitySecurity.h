@@ -32,4 +32,9 @@
 
 +(NSString*)deptName;
 + (BOOL)setDeptName:(NSString*)deptName;
+
+/* 缓存用户通讯录到本地 */
++(NSDictionary *)userListArr;
++(BOOL)setUserListArr:(NSDictionary *)arr;
+
 @end

@@ -32,7 +32,7 @@
 #define IPHONE6_MORE     ([[UIScreen mainScreen] bounds].size.height > 568)
 #define IPHONE6     ([[UIScreen mainScreen] bounds].size.height == 667)
 #define IPHONE6P     ([[UIScreen mainScreen] bounds].size.height == 736)
-#define IPHONEX     ([[UIScreen mainScreen] bounds].size.height == 812)
+#define IPHONEX     ([[UIScreen mainScreen] bounds].size.height >= 812)
 
 #import <Masonry.h>
 #import <SVProgressHUD.h>
@@ -41,13 +41,13 @@
 #define CCITY_SET_TOKEN_KEY           @"CCITY_SET_TOKEN_KEY"
 
 #define kUPLOADIMAGE_SUCCESS @"UPLOADIMAGE_SUCCESS"
-
 #define kNOTI_SAVEINFO_SUCCESS @"NOTI_SAVEINFO_SUCCESS" // 第一次页面数据保存成功 需要刷新页面
 
 #import "CCityJSONNetWorkManager.h"
 #import "CCitySingleton.h"
 #import "CCityAlterManager.h"
 #import "CCErrorNoManager.h"
+#import "CCitySystemVersionManager.h"
 #import "CCUtil.h"
 
 #import "CCityNoDataCell.h"

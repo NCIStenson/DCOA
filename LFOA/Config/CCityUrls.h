@@ -14,7 +14,7 @@
 
 // http://60.10.184.35:18088/dcyd  // 客户现场
 
-//#define CCITY_BASE_URL @"http://122.226.81.198:8083/dcyd"
-#define CCITY_BASE_URL @"http://60.10.184.35:18088/dcyd"
+#define CCITY_BASE_URL @"http://122.226.81.198:8082/dcyd"
+//#define CCITY_BASE_URL @"http://60.10.184.35:18088/dcyd"
 
 #endif /* CCityUrls_h */

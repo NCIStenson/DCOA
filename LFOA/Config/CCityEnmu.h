@@ -56,4 +56,15 @@ typedef NS_ENUM(NSUInteger, CCNetWorkStateErrorCode) {
     CCNetWorkStateServerExecuteError = 501,   // 执行错误
 };
 
+typedef enum : NSUInteger {
+    ENTER_PERSONLIST_SEND,
+    ENTER_PERSONLIST_READ,
+    ENTER_PERSONLIST_GROUPREAD,
+} ENTER_PERSONLIST;
+
+typedef enum : NSUInteger {
+    ENTER_CYYJ_PEOPLE,
+    ENTER_CYYJ_GROUP,
+} ENTER_CYYJ;
+
 #endif /* CCityEnmu_h */

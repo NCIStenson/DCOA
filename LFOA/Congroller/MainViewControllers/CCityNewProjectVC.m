@@ -78,19 +78,12 @@ static NSString* ccityOfficalDeitalPersonListCellReuseId = @"ccityOfficalDeitalP
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    //    self.navigationController.navigationBar.barTintColor = CCITY_MAIN_COLOR;
-    //    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    //    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
     [_lineLayer removeFromSuperlayer];
-    //    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-    //    self.navigationController.navigationBar.tintColor = CCITY_MAIN_COLOR;
-    //    [self.navigationController.navigationBar setTitleTextAttributes:nil];
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle {
@@ -235,9 +228,9 @@ static NSString* ccityOfficalDeitalPersonListCellReuseId = @"ccityOfficalDeitalP
         if([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"status"] isEqualToString:@"failed"]){
             [CCityAlterManager showSimpleTripsWithVC:self Str:@"数据错误" detail:nil];
         }else{
+
             if([CCUtil isNotNull:[responseObject objectForKey:@"flows"]]){
                 NSArray* datasArr = [responseObject objectForKey:@"flows"];
-                
                 NSMutableArray* muDataArr = [NSMutableArray arrayWithCapacity:datasArr.count];
                 for (int i = 0 ; i < datasArr.count; i++) {
                     CCityOfficalNewProjectModel * model = [[CCityOfficalNewProjectModel alloc]initWithDic:datasArr[i]];
@@ -374,7 +367,6 @@ static NSString* ccityOfficalDeitalPersonListCellReuseId = @"ccityOfficalDeitalP
     }
     
     NSDictionary * dic = model.detailDataArr[indexPath.row];
-    NSLog(@"==== %@",dic[@"proname"]);
     cell.projectModel = [[CCityOfficalNewProjectModel alloc]initWithDic:dic];
     
     return cell;

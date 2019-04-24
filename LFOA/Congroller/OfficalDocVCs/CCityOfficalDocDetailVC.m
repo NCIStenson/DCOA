@@ -22,10 +22,13 @@
 #import "XuAlertCon.h"
 #import "CCErrorNoManager.h"
 #import "CCHuiqianDetailVC.h"
+#import "CCityChoosePeopleVC.h"
+#import "CCityCYVC.h"
+
 #import "CCityUploadFileVC.h"
 #import "CCityOfficalDocVC.h"
 
-@interface CCityOfficalDocDetailVC ()<CCityOfficalDocDetailDelegate,CCityOffialPersonListDelegate,CCityOfficalDetailDocListViewDelegate>
+@interface CCityOfficalDocDetailVC ()<CCityOfficalDocDetailDelegate,CCityOfficalDetailDocListViewDelegate,CCityOffialPersonListDelegate>
 
 @end
 static NSString* ccityOfficlaDataExcleReuseId  = @"CCityOfficalDetailDataExcleStyle";
@@ -63,15 +66,20 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self configDataWithId:_docId];
-    
+    _footerView = [self footerView];
+
+    if(_isNewProject){
+        if ([CCUtil isNotNull:_resultDic]) {
+            [self showDocDetail:_resultDic];
+        }
+    }else{
+        [self configDataWithId:_docId];
+    }
     self.navigationItem.leftBarButtonItem  = [self leftBarBtnItem];
     self.navigationItem.rightBarButtonItem = [self rightBarBtnItem];
     
-    if (_conentMode == CCityOfficalDocBackLogMode) {
-        
-        _footerView = [self footerView];
+    if (_conentMode != CCityOfficalDocHaveDoneMode) {
+
         [self.view addSubview:_footerView];
         
         [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -108,6 +116,15 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
     self.tableView.estimatedRowHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(kShowUploadSuccess) name:kUPLOADIMAGE_SUCCESS object:nil];
+
+}
+
+-(void)kShowUploadSuccess
+{
+    [SVProgressHUD showInfoWithStatus:@"上传成功"];
+    [SVProgressHUD dismissWithDelay:1.5];
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -116,7 +133,6 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
 }
 
 -(void)dealloc {
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -154,7 +170,7 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
     UIButton* NWBtn = [self getBottomBtnWithTitle:@"拟 文" sel:@selector(nwAction)];
     
     
-    [_footerView addSubview:NWBtn];
+//    [_footerView addSubview:NWBtn];
     [_footerView addSubview:saveBtn];
     [_footerView addSubview:_sendBtn];
     
@@ -165,11 +181,11 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
         [_footerView addSubview:huiqianBtn];
     }
     
-    NSMutableArray* btnsArr = [@[NWBtn,saveBtn,_sendBtn] mutableCopy];
+    NSMutableArray* btnsArr = [@[saveBtn,_sendBtn] mutableCopy];
     
     //    return;
     if (huiqianBtn ) {
-        [btnsArr addObject:huiqianBtn];
+//        [btnsArr addObject:huiqianBtn];
     }
     
     for (int i = 0; i < btnsArr.count; i ++) {
@@ -178,8 +194,9 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
         float marginTop = 5;
         float btnHeight = 35;
         
+//        float btnWidth = (self.view.frame.size.width - (btnsArr.count + 1) * 10) / btnsArr.count;
         float btnWidth = (self.view.frame.size.width - (btnsArr.count + 1) * 10) / btnsArr.count;
-        
+
         if ([[CCitySystemVersionManager deviceStr] isEqualToString:@"iPhone X"]) {
             marginTop = 10;
             btnHeight = 39;
@@ -314,6 +331,22 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
         [self.navigationController pushViewController:viewController animated:YES];
     };
     
+    menuVC.niwenBtnClick = ^{
+        [self nwAction];
+    };
+    menuVC.readBtnClick = ^{
+        CCityCYVC * CYVC = [[CCityCYVC alloc]init];
+        CYVC.enterType = ENTER_CYYJ_PEOPLE;
+        CYVC.ids = _docId;
+        [self pushTo:CYVC];
+    };
+    menuVC.groupBtnClick = ^{
+        CCityCYVC * CYVC = [[CCityCYVC alloc]init];
+        CYVC.enterType = ENTER_CYYJ_GROUP;
+        CYVC.ids = _docId;
+        [self pushTo:CYVC];
+    };
+
     menuVC.pushToRoot = ^{
         
         if (self.sendActionSuccessed) {
@@ -578,12 +611,9 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
     }
     
     if (model.style == CCityOfficalDetailDateStyle) {
+        
         NSArray* timesArr = [text componentsSeparatedByString:@"-"];
-        if(timesArr.count > 0){
-            if (timesArr.count > 2) {
-                model.value = [NSString stringWithFormat:@"%@/%@/%@",timesArr[0],timesArr[1],timesArr[2]];
-            }
-        }
+        model.value = [NSString stringWithFormat:@"%@/%@/%@",timesArr[0],timesArr[1],timesArr[2]];
     } else {
         
         model.value = text;
@@ -795,13 +825,12 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
             for (int i = 0 ; i < self.dataArr.count; i++) {
                 CCityOfficalDocDetailModel* model = self.dataArr[i];
                 if (model.value.length > 0) {
-                    NSLog(@" ===  %@",model.value);
                     [self saveMethodWithIndex:i andText:model.value];
                 }
             }
         }
     }
-    NSLog(@" ===  %@",_valuesDic);
+
     if (!_valuesDic.count && !_huiQianStr) {
         if (btn) {
             [SVProgressHUD showInfoWithStatus:@"数据未改变，无需保存"];
@@ -944,8 +973,9 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
     [manager GET:_url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         NSLog(@"%@",task.currentRequest.URL.absoluteString);
-        
+        [self showDocDetail:responseObject];
         [SVProgressHUD dismiss];
+        return;
         
         if ([responseObject isKindOfClass:[NSArray class]]) {
             
@@ -1035,6 +1065,79 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
         NSLog(@"%@",error);
     }];
 }
+
+-(void)showDocDetail:(NSDictionary *)responseObject{
+    if (_conentMode == CCityOfficalDocBackLogMode) {
+        
+        if (responseObject[@"isEnd"] != NULL) {
+            
+            self.isEnd = [responseObject[@"isEnd"] boolValue];
+        }
+    }
+    
+    
+    if ([responseObject[@"status"] isEqualToString:@"failed"]) {
+        
+        
+        CCErrorNoManager* errorManager = [CCErrorNoManager new];
+        if (![errorManager requestSuccess:responseObject]) {
+            
+            [errorManager getErrorNum:responseObject WithVC:self WithAction:nil loginSuccess:^{
+                
+                [self configDataWithId:_docId];
+            }];
+            return;
+        }
+        
+        return;
+    }
+    
+    if (!_docId[@"fk_flow"]) {
+        _docId[@"fk_flow"] = responseObject[@"fkFlow"];
+    }
+    
+    if (!_docId[@"workId"]) {
+        _docId[@"workId"] = responseObject[@"workId"];
+    }
+    
+    if (!_docId[@"fId"]) {
+        _docId[@"fId"] = responseObject[@"fid"];
+    }
+    if (!_docId[@"fkNode"]) {
+        _docId[@"fkNode"] = responseObject[@"fkNode"];
+    }
+    
+    NSArray*   resultArr = responseObject[@"form"];
+    
+    if (!self.dataArr) {
+        
+        self.dataArr = [NSMutableArray arrayWithCapacity:resultArr.count];
+    }
+    
+    BOOL isContentHuiQian = NO;
+    
+    for (int i = 0 ; i < resultArr.count; i++) {
+        
+        CCityOfficalDocDetailModel* model = [[CCityOfficalDocDetailModel alloc]initWithDic:resultArr[i]];
+        
+        if (_conentMode != CCityOfficalDocBackLogMode) {
+            
+            if (model.canEdit) {    model.canEdit = NO; }
+        } else {
+            if (model.style == CCityOfficalDetailHuiQianStyle) {
+                isContentHuiQian = YES;
+                _currentHuiqianCellIndexPath = [NSIndexPath indexPathForRow:0 inSection:i];
+            }
+        }
+        
+        [self.dataArr addObject:model];
+    }
+    
+    [self updataFootViewWithContentHuiQian:isContentHuiQian];
+    [self.tableView reloadData];
+}
+
+
 
 -(void)sendOpinio {
     
@@ -1241,7 +1344,6 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
 
 -(void)goUploadFileVC:(CCityOfficalDetailFileListModel *)model
 {
-    
     NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithDictionary:_docId];
     [dic setObject:model.dirName forKey:@"materialFolder"];
     CCityUploadFileVC * uploadFileVC = [[CCityUploadFileVC alloc]init];

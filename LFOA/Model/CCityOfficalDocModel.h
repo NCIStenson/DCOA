@@ -25,6 +25,7 @@
 
 @end
 
+// 新建公文项目流程模型类
 @interface CCityOfficalNewProjectModel : NSObject
 
 @property(nonatomic, copy) NSString* projectName;
@@ -38,4 +39,3 @@
 - (instancetype)initWithDic:(NSDictionary*)dic;
 
 @end
-

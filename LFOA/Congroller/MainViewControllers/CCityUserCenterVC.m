@@ -61,7 +61,7 @@
     _tableView.backgroundColor = CCITY_USERCRNTER_BGCOLOR;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     CGRect tableViewFrame = self.view.bounds;
-    tableViewFrame = CGRectMake(0, 3.f, tableViewFrame.size.width, tableViewFrame.size.height - 3.f - 50.f - 64 - 50.f);
+    tableViewFrame = CGRectMake(0, 3.f, tableViewFrame.size.width, tableViewFrame.size.height - 3.f - 50.f - NAV_HEIGHT - TABBAR_HEIGHT);
     _tableView.frame = tableViewFrame;
     
     UIControl* tableHeaderView = [self tableHeaderView];

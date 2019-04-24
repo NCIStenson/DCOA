@@ -162,7 +162,7 @@
         [cell.contentView addSubview:deleteBtn];
         deleteBtn.frame = CGRectMake(0, 0, 30, 30);
         [deleteBtn setImage:[UIImage imageNamed:@"icon_delete" ] forState:UIControlStateNormal];
-        deleteBtn.center = CGPointMake(chooseImageView.right - 15,chooseImageView.top + 15);
+        deleteBtn.center = CGPointMake(chooseImageView.frame.origin.x + chooseImageView.frame.size.width - 15,15);
         [deleteBtn addTarget:self action:@selector(deleteSelectedPhoto:) forControlEvents:UIControlEventTouchUpInside];
     }else{
         chooseImageView.contentMode = UIViewContentModeCenter;

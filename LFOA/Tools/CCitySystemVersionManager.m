@@ -19,7 +19,6 @@
     
     NSString*platform = [NSString stringWithCString: systemInfo.machine encoding:NSASCIIStringEncoding];
     
-    
     if([platform isEqualToString:@"iPhone5,1"]) return@"iPhone 5";
     
     if([platform isEqualToString:@"iPhone5,2"]) return@"iPhone 5";
@@ -58,6 +57,10 @@
     
     if([platform isEqualToString:@"iPhone10,6"]) return@"iPhone X";
     
+    if ([platform isEqualToString:@"iPhone11,2"]) return @"iPhone XS";
+    if ([platform isEqualToString:@"iPhone11,4"] || [platform isEqualToString:@"iPhone11,6"]) return @"iPhone XS Max";
+    if ([platform isEqualToString:@"iPhone11,8"]) return @"iPhone XR";
+
     return platform;
   
 }

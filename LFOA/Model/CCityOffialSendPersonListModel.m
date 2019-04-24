@@ -148,3 +148,20 @@
 
 @end
 
+@implementation CCityCYGroupModel
+
+- (instancetype)initWithDic:(NSDictionary*)dic
+{
+    self = [super init];
+    if (self) {
+        [self setValuesForKeysWithDictionary:dic];
+        _isSelect = NO;
+    }
+    return self;
+}
+-(void)setValue:(id)value forUndefinedKey:(NSString *)key{
+    if([key isEqualToString:@"ID"]){
+        _groupID = value;
+    }
+}
+@end
