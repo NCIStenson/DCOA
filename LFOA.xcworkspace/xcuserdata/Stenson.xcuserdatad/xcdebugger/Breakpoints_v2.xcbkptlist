@@ -22,32 +22,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LFOA/Congroller/OfficalDocVCs/CCityOfficalDetailPsrsonListVC.m"
-            timestampString = "577675876.281419"
+            filePath = "LFOA/Congroller/OfficalDocVCs/CCityOfficalDocDetailVC.m"
+            timestampString = "577800362.494208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
-            landmarkName = "-sendAction"
+            startingLineNumber = "344"
+            endingLineNumber = "344"
+            landmarkName = "-menuAction"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LFOA/Congroller/OfficalDocVCs/CCityOfficalDocDetailVC.m"
-            timestampString = "577796170.722842"
+            filePath = "LFOA/Tools/CCityAccessoryManager.m"
+            timestampString = "577800362.494334"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "344"
-            endingLineNumber = "344"
-            landmarkName = "-menuAction"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "-OpenFileWithUrl:parameters:fileType:fileName:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

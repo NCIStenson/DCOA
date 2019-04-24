@@ -16,6 +16,7 @@
 #import "CCityScrollViewVC.h"
 #import <WebKit/WebKit.h>
 #import "CCityAccessoryManager.h"
+#import "CCityOfficalFileViewerVC.h"
 
 static NSString* officalDetailDocListCellReuseId = @"officalDetailDocListCellReuseId";
 
@@ -267,7 +268,17 @@ static NSString* officalDetailDocListCellReuseId = @"officalDetailDocListCellReu
     
     CCityOfficalDetailFileListModel* model = _localDataArr[indexPath.section];
     NSDictionary* fileModel = model.filesArr[indexPath.row];
-    [self requestUrlPathWithModel:fileModel];
+    NSString* fileName = fileModel[@"filename"];
+    if ([fileName containsString:@"png"] || [fileName containsString:@"jpg"]) {
+        CCityOfficalFileViewerVC* fileViewVC = [[CCityOfficalFileViewerVC alloc]initWithUrl:nil title:fileName];
+        NSURLRequest * request =  [NSURLRequest requestWithURL:[NSURL URLWithString:fileModel[@"fileUrlpath"]]];
+        [fileViewVC.webView loadRequest:request];
+        if (self.pushToFileViewerVC) {
+            self.pushToFileViewerVC(fileViewVC);
+        }
+    }else{
+        [self requestUrlPathWithModel:fileModel];
+    }
 }
 
 -(void)requestUrlPathWithModel:(NSDictionary*)model {

@@ -612,8 +612,8 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
     
     if (model.style == CCityOfficalDetailDateStyle) {
         
-        NSArray* timesArr = [text componentsSeparatedByString:@"-"];
-        model.value = [NSString stringWithFormat:@"%@/%@/%@",timesArr[0],timesArr[1],timesArr[2]];
+//        NSArray* timesArr = [text componentsSeparatedByString:@"/"];
+//        model.value = [NSString stringWithFormat:@"%@/%@/%@",timesArr[0],timesArr[1],timesArr[2]];
     } else {
         
         model.value = text;
@@ -819,10 +819,13 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
 - (void) saveAction:(UIButton*)btn {
     
     [self.view endEditing:YES];
-    
+    NSLog(@"===%@",self.dataArr);
+
     if (_isNewProject) {
         if([CCUtil isNotNull:self.dataArr]){
             for (int i = 0 ; i < self.dataArr.count; i++) {
+                NSLog(@"--------  %d",i);
+                NSLog(@"--------  %d",self.dataArr.count);
                 CCityOfficalDocDetailModel* model = self.dataArr[i];
                 if (model.value.length > 0) {
                     [self saveMethodWithIndex:i andText:model.value];
@@ -830,6 +833,7 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
             }
         }
     }
+    NSLog(@"===%@",self.dataArr);
 
     if (!_valuesDic.count && !_huiQianStr) {
         if (btn) {
