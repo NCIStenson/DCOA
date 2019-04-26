@@ -16,6 +16,8 @@
 @property(nonatomic, assign)CCityOfficalMainStyle      mainStyle;
 @property(nonatomic, assign)CCityOfficalDocContentMode conentMode;
 @property(nonatomic, strong)NSIndexPath*               indexPath;
+@property(nonatomic, strong)NSString*                  passPerson;
+@property(nonatomic, strong)NSString*                  passOponio;
 
 @property (nonatomic,assign)BOOL                       isNewProject; // 是否是新建流程
 @property (nonatomic,strong)NSDictionary*              resultDic; // 新建流程时传入数据

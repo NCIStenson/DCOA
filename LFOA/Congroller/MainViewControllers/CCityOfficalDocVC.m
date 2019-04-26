@@ -576,17 +576,22 @@ static NSString* officalBackLogCellReuseId = @"officalBackLogCellReuseId";
             
             break;
         case CCityOfficalDocReciveReadMode:
+            if (model.isRead == NO) { model.isRead = YES;  }
             
+            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
         default:
             break;
     }
     
-     [self pushToDocDetailVCWithId:model.docId indexPath:indexPath withIsRead:model.isRead];
+//     [self pushToDocDetailVCWithId:model.docId indexPath:indexPath withIsRead:model.isRead];
+    [self pushToDocDetailVCWithId:model indexPath:indexPath];
 }
 
-- (void)pushToDocDetailVCWithId:(NSDictionary*)docId indexPath:(NSIndexPath*)indexPath withIsRead:(BOOL)isRead{
-    
+
+//- (void)pushToDocDetailVCWithId:(NSDictionary*)docId indexPath:(NSIndexPath*)indexPath withIsRead:(BOOL)isRead{
+- (void)pushToDocDetailVCWithId:(CCityOfficalDocModel*)model indexPath:(NSIndexPath*)indexPath {
+
     NSArray* itemsArr;
     
     if (_mainStyle == CCityOfficalMainDocStyle) {
@@ -597,11 +602,13 @@ static NSString* officalBackLogCellReuseId = @"officalBackLogCellReuseId";
         itemsArr = @[@"表单信息",@"材料清单"];
     }
     
-    CCityOfficalDocDetailVC* docDetialVC = [[CCityOfficalDocDetailVC alloc]initWithItmes:itemsArr Id:docId contentModel:contentMode];
+    CCityOfficalDocDetailVC* docDetialVC = [[CCityOfficalDocDetailVC alloc]initWithItmes:itemsArr Id:model.docId contentModel:contentMode];
     docDetialVC.indexPath = indexPath;
     docDetialVC.mainStyle = _mainStyle;
     docDetialVC.hidesBottomBarWhenPushed = YES;
-    docDetialVC.isread =isRead;
+//    docDetialVC.isread =isRead;
+    docDetialVC.passPerson = model.passPerson;
+    docDetialVC.passOponio = model.passOpinio;
     docDetialVC.sendActionSuccessed = ^(NSIndexPath *indexPath) {
         
         NSMutableArray* dataArr = _subDataDic[@(contentMode)];

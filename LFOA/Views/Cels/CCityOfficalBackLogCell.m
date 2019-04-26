@@ -33,8 +33,8 @@
     _dataLabel.text     = model.docDate;
     _messageTypeLabel.text = model.messagetype;
     
-    if (_myContentMode == CCityOfficalDocBackLogMode) {
-        
+//    if (_myContentMode == CCityOfficalDocBackLogMode) {
+    
         if (_model.isRead) {
             
             if (_isReadLabel.textColor != [UIColor grayColor]) {
@@ -50,7 +50,7 @@
                 _isReadLabel.text = @"[未阅]";
             }
         }
-    }
+//    }
 }
 
 -(void)layoutMySubviews {
@@ -106,7 +106,7 @@
     }];
         
     if (_myContentMode == CCityOfficalDocBackLogMode) {
-            
+    
             _messageTypeLabel = [self detailLabel];
             [self.contentView addSubview:_messageTypeLabel];
             [_dataLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -132,16 +132,16 @@
             }];
         }
     
-    if (_myContentMode != CCityOfficalDocBackLogMode) {
-        
-        [_docTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.contentView).with.offset(OFFICAL_BACKLOG_CELL_PADDING);
-            make.left.equalTo(_docImageView.mas_right).with.offset(OFFICAL_BACKLOG_CELL_PADDING);
-            make.right.equalTo(_dataLabel.mas_right);
-            make.bottom.equalTo(_docIdLabel.mas_top).with.offset(-OFFICAL_BACKLOG_CELL_PADDING);
-            make.height.equalTo(_docIdLabel);
-        }];
-    }
+//    if (_myContentMode != CCityOfficalDocBackLogMode) {
+    
+//        [_docTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.equalTo(self.contentView).with.offset(OFFICAL_BACKLOG_CELL_PADDING);
+//            make.left.equalTo(_docImageView.mas_right).with.offset(OFFICAL_BACKLOG_CELL_PADDING);
+//            make.right.equalTo(_dataLabel.mas_right);
+//            make.bottom.equalTo(_docIdLabel.mas_top).with.offset(-OFFICAL_BACKLOG_CELL_PADDING);
+//            make.height.equalTo(_docIdLabel);
+//        }];
+//    }
     
     switch (_myContentMode) {
             
@@ -155,10 +155,12 @@
         case CCityOfficalDocHaveDoneMode:
             
             _docImageView.image = [UIImage imageNamed:@"ccity_offical_doc_haveDone_44x44_"];
+            [self addIsReadLabel];
             break;
         case CCityOfficalDocReciveReadMode:
             
             _docImageView.image = [UIImage imageNamed:@"ccity_offical_doc_reciveRead_44x44_"];
+            [self addIsReadLabel];
             break;
         default:
             break;

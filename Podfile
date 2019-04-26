@@ -29,7 +29,7 @@ pod 'SDCycleScrollView','~> 1.66'
 pod 'TTTAttributedLabel'
 pod 'ZLPhotoBrowser', '~> 2.4.9'
 pod 'YYKit', '~> 1.0.7'
-
+pod 'PYPhotoBrowser'
 end
 
 #target 'NotficationService' do

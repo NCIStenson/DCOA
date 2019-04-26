@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F329D5E80DD505B19A4BF9A02E05EF2A"
+               BlueprintIdentifier = "BBCC20830B6F7E66793D8288E60C0446"
                BlueprintName = "ZLPhotoBrowser"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "libZLPhotoBrowser.a">

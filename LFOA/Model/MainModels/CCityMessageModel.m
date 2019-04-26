@@ -38,7 +38,7 @@
         _docStyle = CCityOfficalDocBackLogMode;
         
         if ([_messageType isEqualToString:@"传阅消息"]) {
-            
+            _mainStyle = CCityOfficalMainDocStyle;
             _docStyle = CCityOfficalDocReciveReadMode;
         } else if ([_messageType isEqualToString:@"督办消息"]) {
             

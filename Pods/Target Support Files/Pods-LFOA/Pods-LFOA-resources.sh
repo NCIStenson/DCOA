@@ -94,6 +94,7 @@ EOM
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/JSBadgeView/JSBadgeView.bundle"
   install_resource "${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle"
+  install_resource "${PODS_ROOT}/PYPhotoBrowser/PYPhotoBrowser/PYPhotosView.bundle"
   install_resource "${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
   install_resource "${PODS_ROOT}/TSMessages/Pod/Assets/NotificationBackgroundError.png"
   install_resource "${PODS_ROOT}/TSMessages/Pod/Assets/NotificationBackgroundError@2x.png"
@@ -119,6 +120,7 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/JSBadgeView/JSBadgeView.bundle"
   install_resource "${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle"
+  install_resource "${PODS_ROOT}/PYPhotoBrowser/PYPhotoBrowser/PYPhotosView.bundle"
   install_resource "${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
   install_resource "${PODS_ROOT}/TSMessages/Pod/Assets/NotificationBackgroundError.png"
   install_resource "${PODS_ROOT}/TSMessages/Pod/Assets/NotificationBackgroundError@2x.png"

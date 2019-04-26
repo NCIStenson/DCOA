@@ -27,6 +27,7 @@
 
 #import "CCityUploadFileVC.h"
 #import "CCityOfficalDocVC.h"
+#import "CustomIOSAlertView.h"
 
 @interface CCityOfficalDocDetailVC ()<CCityOfficalDocDetailDelegate,CCityOfficalDetailDocListViewDelegate,CCityOffialPersonListDelegate>
 
@@ -78,18 +79,14 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
     self.navigationItem.leftBarButtonItem  = [self leftBarBtnItem];
     self.navigationItem.rightBarButtonItem = [self rightBarBtnItem];
     
-    if (_conentMode != CCityOfficalDocHaveDoneMode) {
+    if (_conentMode == CCityOfficalDocBackLogMode) {
 
         [self.view addSubview:_footerView];
         
         [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
-            
-            if ([[CCitySystemVersionManager deviceStr] isEqualToString:@"iPhone X"]) {
-                
+            if ( IPHONEX ) {
                 make.bottom.equalTo(self.view).with.offset(-79.f);
-                
             } else {
-                
                 make.bottom.equalTo(self.view).with.offset(-49.f);
             }
         }];
@@ -104,10 +101,37 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    } else {
-        
+    }else if (_conentMode == CCityOfficalDocReciveReadMode){
+        [self.view addSubview:_footerView];
         [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
-            
+            if ( IPHONEX ) {
+                make.bottom.equalTo(self.view).with.offset(-79.f);
+            } else {
+                make.bottom.equalTo(self.view).with.offset(-49.f);
+            }
+        }];
+        
+        [_footerView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.tableView.mas_bottom);
+            make.left.equalTo  (self.view);
+            make.bottom.equalTo(self.view);
+            make.right.equalTo (self.view);
+        }];
+        
+        UIButton * inputBtn = [self inputBtn];
+        [_footerView addSubview:inputBtn];
+        [inputBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(_footerView).offset(10);
+            make.right.mas_equalTo(_footerView).offset(-10);
+            make.top.mas_equalTo(_footerView).offset(5);
+            make.height.mas_equalTo(35);
+        } ];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+
+    }else {
+        [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.view);
         }];
     }
@@ -157,6 +181,32 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
     return footerView;
 }
 
+- (UIButton *)inputBtn
+{
+    UIButton* sendBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    
+    [sendBtn setTitle:@"填写阅读意见" forState:UIControlStateNormal];
+    sendBtn.backgroundColor = CCITY_MAIN_COLOR;
+    sendBtn.clipsToBounds = YES;
+    sendBtn.layer.cornerRadius = 5.f;
+    [sendBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [sendBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [sendBtn addTarget:self action:@selector(writeOpinioAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    return sendBtn;
+}
+
+-(void)writeOpinioAction {
+    
+    CustomIOSAlertView* alertView = [[CustomIOSAlertView alloc]init];
+    alertView.buttonTitles = @[@"取消", @"回复"];
+    alertView.passOpinio = _passOponio;
+    alertView.passPerson = _passPerson;
+    alertView.delegate = self;
+    [alertView show];
+}
+
+
 - (void)updataFootViewWithContentHuiQian:(BOOL)isContentHuiQian {
     
     UIButton* saveBtn = [self getBottomBtnWithTitle:@"保 存" sel:@selector(saveAction:)];
@@ -167,57 +217,21 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
         [_sendBtn setTitle:@"结案" forState:UIControlStateNormal];
     }
     
-    UIButton* NWBtn = [self getBottomBtnWithTitle:@"拟 文" sel:@selector(nwAction)];
-    
-    
-//    [_footerView addSubview:NWBtn];
     [_footerView addSubview:saveBtn];
     [_footerView addSubview:_sendBtn];
     
-    UIButton* huiqianBtn;
-    if (isContentHuiQian) {
-        
-        huiqianBtn = [self getBottomBtnWithTitle:@"领导意见" sel:@selector(huiqianAction)];
-        [_footerView addSubview:huiqianBtn];
-    }
-    
     NSMutableArray* btnsArr = [@[saveBtn,_sendBtn] mutableCopy];
     
-    //    return;
-    if (huiqianBtn ) {
-//        [btnsArr addObject:huiqianBtn];
-    }
+    [btnsArr mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:10 leadSpacing:10 tailSpacing:10];
     
-    for (int i = 0; i < btnsArr.count; i ++) {
-        UIButton * btn = btnsArr[i];
-        
-        float marginTop = 5;
-        float btnHeight = 35;
-        
-//        float btnWidth = (self.view.frame.size.width - (btnsArr.count + 1) * 10) / btnsArr.count;
-        float btnWidth = (self.view.frame.size.width - (btnsArr.count + 1) * 10) / btnsArr.count;
-
-        if ([[CCitySystemVersionManager deviceStr] isEqualToString:@"iPhone X"]) {
-            marginTop = 10;
-            btnHeight = 39;
+    [btnsArr mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_footerView).with.offset(5.f);
+        if (IPHONEX) {
+            make.bottom.equalTo(_footerView).with.offset(-30.f);
+        } else {
+            make.bottom.equalTo(_footerView).with.offset(-10.f);
         }
-        btn.frame = CGRectMake(10 + (btnWidth + 10) * i, marginTop, btnWidth, btnHeight);
-    }
-    
-    //    [btnsArr mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:10 leadSpacing:10 tailSpacing:10];
-    //
-    //    [btnsArr mas_makeConstraints:^(MASConstraintMaker *make) {
-    //
-    //        make.top.equalTo(_footerView).with.offset(5.f);
-    //
-    //        if ([[CCitySystemVersionManager deviceStr] isEqualToString:@"iPhone X"]) {
-    //
-    //            make.bottom.equalTo(_footerView).with.offset(-30.f);
-    //        } else {
-    //
-    //            make.bottom.equalTo(_footerView).with.offset(-10.f);
-    //        }
-    //    }];
+    }];
 }
 
 -(UIButton*)getBottomBtnWithTitle:(NSString*)title sel:(SEL)sel {
@@ -970,6 +984,7 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
     
     AFHTTPSessionManager* manager = [CCityJSONNetWorkManager sessionManager];
     NSMutableDictionary* parameters = [docId mutableCopy];
+//    [parameters addEntriesFromDictionary:_docId];
     [parameters setObject:[CCitySingleton sharedInstance].token forKey:@"token"];
     
     if (!_url) {    _url =@"service/form/FormDetail.ashx";  }
@@ -1110,6 +1125,15 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
     if (!_docId[@"fkNode"]) {
         _docId[@"fkNode"] = responseObject[@"fkNode"];
     }
+    if (!_docId[@"formId"]) {
+        _docId[@"formId"] = responseObject[@"formId"];
+    }
+    if (responseObject[@"cyOpinion"] ) {
+        _passOponio= responseObject[@"cyOpinion"];
+    }
+    if (responseObject[@"cyr"]) {
+        _passPerson = responseObject[@"cyr"];
+    }
     
     NSArray*   resultArr = responseObject[@"form"];
     
@@ -1137,7 +1161,9 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
         [self.dataArr addObject:model];
     }
     
-    [self updataFootViewWithContentHuiQian:isContentHuiQian];
+    if (_conentMode == CCityOfficalDocBackLogMode) {
+        [self updataFootViewWithContentHuiQian:isContentHuiQian];
+    }
     [self.tableView reloadData];
 }
 
@@ -1353,6 +1379,62 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
     CCityUploadFileVC * uploadFileVC = [[CCityUploadFileVC alloc]init];
     uploadFileVC.resultDic = dic;
     [self.navigationController pushViewController:uploadFileVC animated:YES];
+}
+
+#pragma mark- --- custom alerview delegate
+
+- (void)customIOS7dialogButtonTouchUpInside:(id)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex == 1) {
+        
+        CustomIOSAlertView* cusAlertView = (CustomIOSAlertView*)alertView;
+        if (cusAlertView.inputTV.text.length == 0) {
+            
+            [SVProgressHUD showErrorWithStatus:@"发送内容为空"];
+            [SVProgressHUD dismissWithDelay:2.f];
+            return;
+        } else {
+            
+            [self sendOpinio:cusAlertView];
+        }
+    } else {
+        
+        [alertView close];
+    }
+}
+-(void)sendOpinio:(CustomIOSAlertView*)alertView {
+    
+    [SVProgressHUD show];
+    
+    AFHTTPSessionManager* manager = [CCityJSONNetWorkManager sessionManager];
+    
+    NSDictionary* parametersDic = @{
+                                    @"messageId":_docId[@"messageId"],
+                                    @"fileId"   :_docId[@"formId"],
+                                    @"content"  :alertView.inputTV.text,
+                                    @"token"    :[CCitySingleton sharedInstance].token,
+                                    };
+    
+    [manager POST:@"service/form/ReplyOpinion.ashx" parameters:parametersDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        [SVProgressHUD dismiss];
+        if ([responseObject[@"status"] isEqual:@"success"]) {
+            
+            [alertView close];
+            [TSMessage showNotificationWithTitle:@"发送成功" type:TSMessageNotificationTypeSuccess];
+        } else {
+            
+            [SVProgressHUD showErrorWithStatus:@"发送失败"];
+            [SVProgressHUD dismissWithDelay:2];
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        NSLog(@"%@",error);
+        [SVProgressHUD dismiss];
+        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+        [SVProgressHUD dismissWithDelay:2];
+    }];
 }
 
 @end

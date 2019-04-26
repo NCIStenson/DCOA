@@ -18,7 +18,13 @@
 #import "CCityAccessoryManager.h"
 #import "CCityOfficalFileViewerVC.h"
 
+#import "PYPhotoBrowseView.h"
+
 static NSString* officalDetailDocListCellReuseId = @"officalDetailDocListCellReuseId";
+
+@interface CCityOfficalDetailDocListView() <PYPhotoBrowseViewDataSource,PYPhotoBrowseViewDelegate>
+
+@end
 
 @implementation CCityOfficalDetailDocListView {
     
@@ -262,6 +268,33 @@ static NSString* officalDetailDocListCellReuseId = @"officalDetailDocListCellReu
     return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删除";
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CCityOfficalDetailFileListModel* model = _dataArr[indexPath.section];
+    NSDictionary* fileModel = model.filesArr[indexPath.row];
+    
+    NSMutableArray * arr = [NSMutableArray arrayWithArray:model.filesArr];
+    [arr removeObjectAtIndex:indexPath.row];
+    model.filesArr = arr;
+    NSLog(@" ====  %@",model.dirName);
+    [_localDataArr replaceObjectAtIndex:indexPath.section withObject:model];
+    [_dataArr replaceObjectAtIndex:indexPath.section withObject:model];
+    
+    // 从列表中删除
+    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [self deleteFileWithID:fileModel[@"filename"]];
+}
+
 #pragma mark- --- UITableViewDelegate
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -270,15 +303,36 @@ static NSString* officalDetailDocListCellReuseId = @"officalDetailDocListCellReu
     NSDictionary* fileModel = model.filesArr[indexPath.row];
     NSString* fileName = fileModel[@"filename"];
     if ([fileName containsString:@"png"] || [fileName containsString:@"jpg"]) {
-        CCityOfficalFileViewerVC* fileViewVC = [[CCityOfficalFileViewerVC alloc]initWithUrl:nil title:fileName];
-        NSURLRequest * request =  [NSURLRequest requestWithURL:[NSURL URLWithString:fileModel[@"fileUrlpath"]]];
-        [fileViewVC.webView loadRequest:request];
-        if (self.pushToFileViewerVC) {
-            self.pushToFileViewerVC(fileViewVC);
+        NSMutableArray * arr = [NSMutableArray array];
+        for (NSDictionary* fileModel in model.filesArr) {
+            NSString* fileName = fileModel[@"filename"];
+            if ([fileName containsString:@"png"] || [fileName containsString:@"jpg"]) {
+                [arr addObject:fileModel[@"fileUrlpath"]];
+            }
         }
+
+        PYPhotoBrowseView * browseView = [[PYPhotoBrowseView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        browseView.imagesURL = arr; // 图片总数
+        browseView.currentIndex = indexPath.row;
+        browseView.delegate = self;
+        browseView.dataSource = self;
+        browseView.showDuration = 0;
+        browseView.hiddenDuration = 0;
+        [browseView show];
+
+//        CCityOfficalFileViewerVC* fileViewVC = [[CCityOfficalFileViewerVC alloc]initWithUrl:nil title:fileName];
+//        NSURLRequest * request =  [NSURLRequest requestWithURL:[NSURL URLWithString:fileModel[@"fileUrlpath"]]];
+//        [fileViewVC.webView loadRequest:request];
+//        if (self.pushToFileViewerVC) {
+//            self.pushToFileViewerVC(fileViewVC);
+//        }
     }else{
         [self requestUrlPathWithModel:fileModel];
     }
+}
+-(void)photoBrowseView:(PYPhotoBrowseView *)photoBrowseView didSingleClickedImage:(UIImage *)image index:(NSInteger)index
+{
+    [photoBrowseView hidden];
 }
 
 -(void)requestUrlPathWithModel:(NSDictionary*)model {
@@ -304,6 +358,37 @@ static NSString* officalDetailDocListCellReuseId = @"officalDetailDocListCellReu
     
     [accessoryManager OpenFileWithUrl:@"service/form/ReadFile.ashx" parameters:parameters fileType:fileType fileName:fileName];
 
+}
+-(void)deleteFileWithID:(NSString *)filename{
+    
+    [SVProgressHUD show];
+    
+    AFHTTPSessionManager* manager = [CCityJSONNetWorkManager sessionManager];
+    
+    NSDictionary* parameters = @{@"type":@"材料清单",
+                                 @"workId":_ids[@"workId"],
+                                 @"token":[CCitySingleton sharedInstance].token,
+                                 @"filename":filename
+                                 };
+    
+    [manager POST:@"service/file/Delete.ashx" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [SVProgressHUD dismiss];
+        if([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"status"] isEqualToString:@"failed"]){
+            [SVProgressHUD showInfoWithStatus:@"删除失败，数据错误"];
+            [SVProgressHUD dismissWithDelay:1.5];
+        }else{
+            [SVProgressHUD showInfoWithStatus:@"删除成功"];
+            [SVProgressHUD dismissWithDelay:1.5];
+            [_tableView reloadData];
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        [SVProgressHUD dismiss];
+        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+        
+        NSLog(@"%@",error);
+    }];
 }
 
 -(void)viewFileWithResponseObject:(NSDictionary*)dic name:(NSString*)fileName {

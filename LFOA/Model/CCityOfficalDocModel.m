@@ -24,15 +24,19 @@
 
 - (void)configDataWithDic:(NSDictionary*)dic {
     
-    _docId = @{@"workId" :dic[@"workid"],
+    _docId =  [NSMutableDictionary dictionaryWithDictionary:@{@"workId" :dic[@"workid"],
                @"formId" :dic[@"formid"],
                @"fId"    :dic[@"fid"],
                @"fkNode" :dic[@"fk_node"],
                @"fk_flow":dic[@"fk_flow"],
                @"fkFlow" :dic[@"fk_flow"],
-               };
-    
+               }];
+    if (dic[@"messageId"] != NULL) {   [_docId setObject:dic[@"messageId"] forKey:@"messageId"];   }
+
     _isRead = [dic[@"isread"] boolValue];
+    if (dic[@"readstate"]) {
+        _isRead = [dic[@"readstate"] boolValue];
+    }
     _docTitle = dic[@"projectname"];
     _docDate = [self conerDateStrWithStr:dic[@"rdt"]];
     
@@ -55,6 +59,12 @@
             _docNumber = [NSString stringWithFormat:@"传阅人：%@",dic[@"cyr"]];
         }
     }
+    if (dic[@"cyr"] != NULL) {  _passPerson = dic[@"cyr"];  }
+    else {  _passPerson = @"";  }
+    
+    if (dic[@"cyOpinion"] != NULL) {    _passOpinio = dic[@"cyOpinion"];    }
+    else {  _passOpinio = @"";  }
+
 }
 
 -(NSString*)conerDateStrWithStr:(NSString*)dateStr {

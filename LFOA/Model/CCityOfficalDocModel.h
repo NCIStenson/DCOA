@@ -16,10 +16,12 @@
 @property(nonatomic, assign) BOOL      isRead;
 @property(nonatomic, strong) NSString* messagetype; // 业务类型
 @property(nonatomic, strong) NSString* surplusDays;
+@property(nonatomic, strong) NSString* passPerson;
+@property(nonatomic, strong) NSString* passOpinio;
 
 @property(nonatomic, assign) CCityOfficalDocContentMode contentMode;
 @property(nonatomic, assign) CCityOfficalMainStyle  mainStyle;
-@property(nonatomic, strong)NSDictionary* docId;
+@property(nonatomic, strong) NSMutableDictionary* docId;
 
 - (instancetype)initWithDic:(NSDictionary*)dic;
 
