@@ -29,9 +29,13 @@
     _model = model;
     
     _docTitleLabel.text = model.docTitle;
-    _docIdLabel.text    = model.docNumber;
+    _docIdLabel.text    = model.messagetype;
     _dataLabel.text     = model.docDate;
-    _messageTypeLabel.text = model.messagetype;
+//    _messageTypeLabel.text = model.messagetype;
+    
+    if (_myContentMode == CCityOfficalDocReciveReadMode) {
+        _docIdLabel.text    = model.docNumber;
+    }
     
 //    if (_myContentMode == CCityOfficalDocBackLogMode) {
     
@@ -105,32 +109,32 @@
         make.right.equalTo(_dataLabel.mas_left).with.offset(-5.f);
     }];
         
-    if (_myContentMode == CCityOfficalDocBackLogMode) {
-    
-            _messageTypeLabel = [self detailLabel];
-            [self.contentView addSubview:_messageTypeLabel];
-            [_dataLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                
-                make.right.equalTo(_arrowImage.mas_left).with.offset(- 2*OFFICAL_BACKLOG_CELL_PADDING);
-                make.bottom.equalTo(self.contentView).with.offset(-OFFICAL_BACKLOG_CELL_PADDING);
-                make.width.mas_equalTo(130.f);
-                make.height.mas_equalTo(15.f);
-            }];
-            
-            [_docIdLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(_docTitleLabel.mas_bottom).with.offset(OFFICAL_BACKLOG_CELL_PADDING);
-                make.left.equalTo(_docTitleLabel);
-                 make.bottom.equalTo(_messageTypeLabel.mas_top).with.offset(-OFFICAL_BACKLOG_CELL_PADDING);
-                make.right.equalTo(_dataLabel.mas_left).with.offset(-5.f);
-            }];
-            
-            [_messageTypeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(_docIdLabel.mas_bottom).with.offset(OFFICAL_BACKLOG_CELL_PADDING);
-                make.left.equalTo(_docIdLabel);
-                make.right.equalTo(_dataLabel.mas_left);
-                make.bottom.equalTo(self.contentView).with.offset(-OFFICAL_BACKLOG_CELL_PADDING);
-            }];
-        }
+//    if (_myContentMode == CCityOfficalDocBackLogMode) {
+//    
+//            _messageTypeLabel = [self detailLabel];
+//            [self.contentView addSubview:_messageTypeLabel];
+//            [_dataLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                
+//                make.right.equalTo(_arrowImage.mas_left).with.offset(- 2*OFFICAL_BACKLOG_CELL_PADDING);
+//                make.bottom.equalTo(self.contentView).with.offset(-OFFICAL_BACKLOG_CELL_PADDING);
+//                make.width.mas_equalTo(130.f);
+//                make.height.mas_equalTo(15.f);
+//            }];
+//            
+//            [_docIdLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.top.equalTo(_docTitleLabel.mas_bottom).with.offset(OFFICAL_BACKLOG_CELL_PADDING);
+//                make.left.equalTo(_docTitleLabel);
+//                 make.bottom.equalTo(_messageTypeLabel.mas_top).with.offset(-OFFICAL_BACKLOG_CELL_PADDING);
+//                make.right.equalTo(_dataLabel.mas_left).with.offset(-5.f);
+//            }];
+//            
+//            [_messageTypeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.top.equalTo(_docIdLabel.mas_bottom).with.offset(OFFICAL_BACKLOG_CELL_PADDING);
+//                make.left.equalTo(_docIdLabel);
+//                make.right.equalTo(_dataLabel.mas_left);
+//                make.bottom.equalTo(self.contentView).with.offset(-OFFICAL_BACKLOG_CELL_PADDING);
+//            }];
+//        }
     
 //    if (_myContentMode != CCityOfficalDocBackLogMode) {
     

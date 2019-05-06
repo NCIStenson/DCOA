@@ -41,6 +41,7 @@
 @property(nonatomic, strong)NSString*         table;
 @property(nonatomic, strong)NSString*         value;
 @property(nonatomic, strong)NSString*         field;
+@property(nonatomic, strong)NSString*         GroupId;
 @property(nonatomic, strong)NSArray*          switchContentArr;
 @property(nonatomic, strong)NSMutableArray*   huiqianContentsMuArr;
 @property(nonatomic, strong)NSMutableArray*   huiQianMuArr;

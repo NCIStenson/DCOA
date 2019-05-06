@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5409CCBF7E87CD57D2E4887D /* libPods-LFOA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A7DF90BFC902A8AD3BC301 /* libPods-LFOA.a */; };
+		982F56C9227FC72B00BBD3FC /* 02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 982F56C8227FC72B00BBD3FC /* 02.jpg */; };
 		9853DF54226B1A3E0091AFAF /* CCityChoosePeopleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9853DF53226B1A3E0091AFAF /* CCityChoosePeopleVC.m */; };
 		9858A25C226F027700C238B5 /* CCityCYVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9858A25B226F027600C238B5 /* CCityCYVC.m */; };
 		9858A260227046F000C238B5 /* CCityChooseGroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9858A25F227046F000C238B5 /* CCityChooseGroupVC.m */; };
@@ -218,7 +219,6 @@
 		F1F31C2E1F30A1AF00234FA8 /* CCityBaseContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F31C2D1F30A1AF00234FA8 /* CCityBaseContentView.m */; };
 		F1F586821F3C60A400592086 /* ccity_offical_doc_reciveRead_44x44_@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F1F5867C1F3C60A400592086 /* ccity_offical_doc_reciveRead_44x44_@2x.png */; };
 		F1FA7E491FD12988007DBC95 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = F1FA7E481FD12988007DBC95 /* NotificationService.m */; };
-		F1FAA8121FBADFC500EB89B2 /* 02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F1FAA8111FBADFC500EB89B2 /* 02.jpg */; };
 		F1FE3D511F42796F00848FDD /* ccity_Offical_detailList_fileType_doc_50x50@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = F1FE3D421F42796F00848FDD /* ccity_Offical_detailList_fileType_doc_50x50@1x.png */; };
 		F1FE3D521F42796F00848FDD /* ccity_Offical_detailList_fileType_doc_50x50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F1FE3D431F42796F00848FDD /* ccity_Offical_detailList_fileType_doc_50x50@2x.png */; };
 		F1FE3D531F42796F00848FDD /* ccity_Offical_detailList_fileType_doc_50x50@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F1FE3D441F42796F00848FDD /* ccity_Offical_detailList_fileType_doc_50x50@3x.png */; };
@@ -257,6 +257,7 @@
 		60A7DF90BFC902A8AD3BC301 /* libPods-LFOA.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LFOA.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74881A20AA0A8B0BDC97F14D /* Pods-LFOA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LFOA.release.xcconfig"; path = "Pods/Target Support Files/Pods-LFOA/Pods-LFOA.release.xcconfig"; sourceTree = "<group>"; };
 		8DEEADDD8DF557D6B4BE0C4E /* Pods-NotificationService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.release.xcconfig"; path = "Pods/Target Support Files/Pods-NotificationService/Pods-NotificationService.release.xcconfig"; sourceTree = "<group>"; };
+		982F56C8227FC72B00BBD3FC /* 02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 02.jpg; sourceTree = "<group>"; };
 		984F93B820BE7C2800DD0027 /* LFOA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LFOA.entitlements; sourceTree = "<group>"; };
 		9853DF52226B1A3E0091AFAF /* CCityChoosePeopleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCityChoosePeopleVC.h; sourceTree = "<group>"; };
 		9853DF53226B1A3E0091AFAF /* CCityChoosePeopleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CCityChoosePeopleVC.m; sourceTree = "<group>"; };
@@ -603,7 +604,6 @@
 		F1FA7E471FD12988007DBC95 /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
 		F1FA7E481FD12988007DBC95 /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
 		F1FA7E4A1FD12988007DBC95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F1FAA8111FBADFC500EB89B2 /* 02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 02.jpg; sourceTree = "<group>"; };
 		F1FE3D421F42796F00848FDD /* ccity_Offical_detailList_fileType_doc_50x50@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ccity_Offical_detailList_fileType_doc_50x50@1x.png"; sourceTree = "<group>"; };
 		F1FE3D431F42796F00848FDD /* ccity_Offical_detailList_fileType_doc_50x50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ccity_Offical_detailList_fileType_doc_50x50@2x.png"; sourceTree = "<group>"; };
 		F1FE3D441F42796F00848FDD /* ccity_Offical_detailList_fileType_doc_50x50@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ccity_Offical_detailList_fileType_doc_50x50@3x.png"; sourceTree = "<group>"; };
@@ -778,8 +778,8 @@
 		F115958D1F2C7D9A00519E21 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				982F56C8227FC72B00BBD3FC /* 02.jpg */,
 				9864EB7920C7EEC8006C281C /* logo.png */,
-				F1FAA8111FBADFC500EB89B2 /* 02.jpg */,
 				F1FE3D951F4325A700848FDD /* bg_login.jpg */,
 				F13AEB9C1FBAD3960083DDE6 /* LaunchImage.png */,
 				F161CDAD1F2ED29E00057254 /* loginImges */,
@@ -1428,7 +1428,6 @@
 				F1082E581F32EDAE0008511C /* ccity_nav_back_30x30_@1x.png in Resources */,
 				F14F7B3C1F3F1978000C736A /* ccity_offical_sendDoc_node_50x50_@2x.png in Resources */,
 				F11595921F2C7DC700519E21 /* ccity_root_home_30x30_@3x.png in Resources */,
-				F1FAA8121FBADFC500EB89B2 /* 02.jpg in Resources */,
 				F1072A401F34732F005E4CB0 /* ccity_officalDetail_navMenu_tree_20x20@2x.png in Resources */,
 				F1FE3D7D1F42EE9900848FDD /* ccity_Offical_detailList_fileType_dwg_50x50@1x.png in Resources */,
 				9858A26F227057CF00C238B5 /* menu_item_cy_by_group@3x.png in Resources */,
@@ -1465,6 +1464,7 @@
 				9864EB7A20C7EEC8006C281C /* logo.png in Resources */,
 				F1848B1D1F3806CD00EC927D /* ccity_officalDetail_opened_24x24@2x.png in Resources */,
 				F14F7B381F3F1978000C736A /* ccity_offical_sendDoc_addPerson_50x50_@3x.png in Resources */,
+				982F56C9227FC72B00BBD3FC /* 02.jpg in Resources */,
 				98DE020620E4E8330064178D /* user_mobile@3x.png in Resources */,
 				F1FE3D581F42796F00848FDD /* ccity_Offical_detailList_fileType_pdf_50x50@2x.png in Resources */,
 				9858A271227057CF00C238B5 /* menu_item_cy_by_group@2x.png in Resources */,

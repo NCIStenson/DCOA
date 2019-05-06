@@ -201,7 +201,9 @@ static NSString* ccityMainTaskSerachResultCellReuseId = @"ccityMainTaskSerachRes
     _parameters[@"pageIndex"] = @(_pageIndex);
     
     AFHTTPSessionManager* manager = [CCityJSONNetWorkManager sessionManager];
-    
+    if(self.searchStyle == CCityHomeCellOfficeSearchStyle){
+        _parameters[@"deptname"] = [CCitySingleton sharedInstance].deptname;
+    }
 //    NSURLSessionDataTask* task =
     [manager POST:_url parameters:_parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -290,13 +292,16 @@ static NSString* ccityMainTaskSerachResultCellReuseId = @"ccityMainTaskSerachRes
     
     [SVProgressHUD show];
     
-   NSDictionary* paramters = @{
-                  @"token"    :[CCitySingleton sharedInstance].token,
-                  @"value"    :searchStr,
-                  @"pageSize" :@20,
-                  @"pageIndex":@1
-                  };
-    
+    NSMutableDictionary* paramters = [NSMutableDictionary dictionaryWithDictionary:
+                                      @{@"token"    :[CCitySingleton sharedInstance].token,
+                                        @"value"    :searchStr,
+                                        @"pageSize" :@20,
+                                        @"pageIndex":@1
+                                        }];
+    if(self.searchStyle == CCityHomeCellOfficeSearchStyle){
+        paramters[@"deptname"] = [CCitySingleton sharedInstance].deptname;
+    }
+
     AFHTTPSessionManager* manager = [CCityJSONNetWorkManager sessionManager];
     
     [manager POST:_url parameters:paramters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

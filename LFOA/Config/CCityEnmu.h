@@ -22,6 +22,7 @@ typedef NS_ENUM(NSUInteger, CCityOfficalDetailSectionStyle) {
     CCityOfficalDetailOpinionStyle,
     CCityOfficalDetailDataExcleStyle,          // 数据网格
     CCityOfficalDetailHuiQianStyle,           // 会签
+    CCityOfficalDetailQianZiStyle,           // 签字口令框"
 
 };
 

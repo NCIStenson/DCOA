@@ -62,9 +62,12 @@
     _dataType = dic[@"DataType"];
     _canEdit  = ![dic[@"ReadOnly"] boolValue];
     _table    = dic[@"Table"];
-    _table    = dic[@"Table"];
+    _GroupId  = dic[@"GroupId"];
     _cellNum  = 0;
 
+    if (dic[@"GroupId"]  == [NSNull null]) {
+        _GroupId = @"";
+    }
     if (dic[@"Label"] == [NSNull null]) {   _title = @"空";  }
     else    {  _title  = dic[@"Label"]; }
     
@@ -72,7 +75,8 @@
     else {  _value = dic[@"Value"]; }
 
     NSString* contentType = dic[@"ControlType"];
-    
+    NSLog(@" -----  %@",dic);
+    NSLog(@" -----  %@",contentType);
     if ([contentType isEqual:@"文本框"]) {
         
         if ([dic[@"MultiLine"] boolValue]) {
@@ -90,7 +94,7 @@
         
         else { _style = CCityOfficalDetailNormalStyle; }
         
-    } else if ([contentType isEqual:@"日期框"]) {
+    } else if ([contentType isEqual:@"日期框"] || [contentType isEqual:@"签字日期框"] ) {
         
         _style = CCityOfficalDetailDateStyle;
         NSString* dataStr = dic[@"Value"];
@@ -100,6 +104,11 @@
         _style = CCityOfficalDetailContentSwitchStyle;
         NSDictionary* values = dic[@"ControlDataSource"];
         _switchContentArr = values.allValues;
+    } else if ([contentType isEqual:@"签字口令框"]) {
+        
+        _style = CCityOfficalDetailQianZiStyle;
+        NSString* dataStr = dic[@"Value"];
+        _value = [[dataStr componentsSeparatedByString:@" "] firstObject];
     } else if ([contentType isEqual:@"数据网格"]) {
 
         if ([dic[@"TextType"] isEqual:@"会签"]) {

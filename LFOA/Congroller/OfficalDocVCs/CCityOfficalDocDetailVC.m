@@ -405,7 +405,7 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
         
         if (model.canEdit == NO) {  return; }
         
-        if (model.style == CCityOfficalDetailDateStyle) {
+        if (model.style == CCityOfficalDetailDateStyle || model.style == CCityOfficalDetailDateTimeStyle) {
             
             [self showDatePickerVCWithIndex:sectionView.sectionNum];
         } else if (model.style == CCityOfficalDetailSimpleLineTextStyle) {
@@ -414,7 +414,38 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
         } else if (model.style == CCityOfficalDetailContentSwitchStyle) {
             
             [self showSwitchVCWithModel:model index:sectionView.sectionNum];
+        }else if (model.style == CCityOfficalDetailQianZiStyle){
+            NSLog(@"==== 签字带日期 ===  %d",sectionView.sectionNum);
+            
+            UIAlertController* alertVC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"确认签字？" preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+            
+            UIAlertAction* action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self saveMethodWithIndex:sectionView.sectionNum andText:[CCitySingleton sharedInstance].userName];
+                [self.tableView beginUpdates];
+                NSInteger i = 0;
+                for (CCityOfficalDocDetailModel* alModel in self.dataArr) {
+                    if (model.GroupId.length > 0) {
+                        if ([model.GroupId isEqualToString:alModel.GroupId] && alModel.style == CCityOfficalDetailDateStyle) {
+                            NSString * str = [CCUtil getCurrentDate:@"yyyy-MM-dd"];
+                            [self saveMethodWithIndex:i andText:str];
+                            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:i] withRowAnimation:UITableViewRowAnimationFade];
+                        }
+                    }
+                    i++;
+                }
+                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:sectionView.sectionNum] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView endUpdates];
+            }];
+            
+            [alertVC addAction:cancelAction];
+            [alertVC addAction:action];
+            
+            [self presentViewController:alertVC animated:YES completion:nil];
+            
         }
+        
     }
 }
 
@@ -453,6 +484,7 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
         
         [self saveMethodWithIndex:index andText:date];
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationNone];
+        
     };
     
     [self presentViewController:dataPicker animated:YES completion:nil];
@@ -625,9 +657,12 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
     }
     
     if (model.style == CCityOfficalDetailDateStyle) {
-        
-//        NSArray* timesArr = [text componentsSeparatedByString:@"/"];
-//        model.value = [NSString stringWithFormat:@"%@/%@/%@",timesArr[0],timesArr[1],timesArr[2]];
+        if ([text containsString:@"-"]) {
+            NSArray* timesArr = [text componentsSeparatedByString:@"-"];
+            model.value = [NSString stringWithFormat:@"%@/%@/%@",timesArr[0],timesArr[1],timesArr[2]];
+        }else{
+            model.value = text;
+        }
     } else {
         
         model.value = text;
@@ -1408,12 +1443,10 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
     
     AFHTTPSessionManager* manager = [CCityJSONNetWorkManager sessionManager];
     
-    NSDictionary* parametersDic = @{
-                                    @"messageId":_docId[@"messageId"],
-                                    @"fileId"   :_docId[@"formId"],
-                                    @"content"  :alertView.inputTV.text,
-                                    @"token"    :[CCitySingleton sharedInstance].token,
-                                    };
+    NSMutableDictionary* parametersDic = [NSMutableDictionary dictionaryWithDictionary:_docId];
+    [parametersDic setObject:alertView.inputTV.text forKey:@"content"];
+    [parametersDic setObject:[CCitySingleton sharedInstance].token forKey:@"token"];
+    [parametersDic setObject:_docId[@"formId"] forKey:@"fileId"];
     
     [manager POST:@"service/form/ReplyOpinion.ashx" parameters:parametersDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
