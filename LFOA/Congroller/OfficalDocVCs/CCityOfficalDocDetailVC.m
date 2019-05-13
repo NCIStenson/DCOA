@@ -873,8 +873,6 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
     if (_isNewProject) {
         if([CCUtil isNotNull:self.dataArr]){
             for (int i = 0 ; i < self.dataArr.count; i++) {
-                NSLog(@"--------  %d",i);
-                NSLog(@"--------  %d",self.dataArr.count);
                 CCityOfficalDocDetailModel* model = self.dataArr[i];
                 if (model.value.length > 0) {
                     [self saveMethodWithIndex:i andText:model.value];
@@ -1172,10 +1170,9 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
     
     NSArray*   resultArr = responseObject[@"form"];
     
-    if (!self.dataArr) {
-        
+//    if (!self.dataArr) {
         self.dataArr = [NSMutableArray arrayWithCapacity:resultArr.count];
-    }
+//    }
     
     BOOL isContentHuiQian = NO;
     
@@ -1454,6 +1451,7 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
         if ([responseObject[@"status"] isEqual:@"success"]) {
             
             [alertView close];
+            [self configDataWithId:_docId];
             [TSMessage showNotificationWithTitle:@"发送成功" type:TSMessageNotificationTypeSuccess];
         } else {
             

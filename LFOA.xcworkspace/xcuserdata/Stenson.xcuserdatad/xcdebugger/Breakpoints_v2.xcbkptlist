@@ -73,29 +73,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LFOA/Third/CustomAlertView/CustomIOSAlertView.m"
-            timestampString = "578809792.706794"
+            filePath = "LFOA/Congroller/MainViewControllers/CCityHomeVC.m"
+            timestampString = "579404093.6041729"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "569"
-            endingLineNumber = "569"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LFOA/Third/CustomAlertView/CustomIOSAlertView.m"
-            timestampString = "578809806.854067"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "565"
-            endingLineNumber = "565"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "440"
+            endingLineNumber = "440"
+            landmarkName = "-configCheckUpdate"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

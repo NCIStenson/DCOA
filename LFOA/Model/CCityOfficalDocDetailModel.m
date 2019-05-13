@@ -75,8 +75,6 @@
     else {  _value = dic[@"Value"]; }
 
     NSString* contentType = dic[@"ControlType"];
-    NSLog(@" -----  %@",dic);
-    NSLog(@" -----  %@",contentType);
     if ([contentType isEqual:@"文本框"]) {
         
         if ([dic[@"MultiLine"] boolValue]) {
