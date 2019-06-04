@@ -22,11 +22,12 @@
 
 - (void) configDataWithDic:(NSDictionary*)dic {
 
-    NSArray* childrenArr = dic[@"children"];
-    
-    NSDictionary* childrenDic = childrenArr[0];
-    _personId = childrenDic[@"id"];
-    _name     = childrenDic[@"text"];
+    if(dic[@"children"]){
+        _childrenArr = dic[@"children"];
+    }else{
+        _personId = dic[@"id"];
+        _name     = dic[@"text"];
+    }
 }
 
 @end
@@ -38,7 +39,6 @@
 {
     self = [super init];
     if (self) {
-        
         [self configDataWithDic:dic];
     }
     return self;
@@ -55,13 +55,24 @@
             
     NSArray* persons = organizDic[@"children"];
     
-    _groupItmes = [NSMutableArray arrayWithCapacity:persons.count];
-    
+    _groupItmes = [NSMutableArray array];
     for (int i = 0; i < persons.count; i++) {
-        
         CCityOfficalSendPersonDetailModel* detailModel = [[CCityOfficalSendPersonDetailModel alloc]initWithDic:persons[i]];
-        [_groupItmes addObject:detailModel];
+        if(detailModel.childrenArr.count > 0){
+            for (int j = 0 ; j < detailModel.childrenArr.count ; j ++) {
+                CCityOfficalSendPersonDetailModel * detailModel1 = [[CCityOfficalSendPersonDetailModel alloc]initWithDic:detailModel.childrenArr[j]];
+                [_groupItmes addObject:detailModel1];
+            }
+        }else{
+            [_groupItmes addObject:detailModel];
+        }
     }
+
+//    for (int i = 0; i < persons.count; i++) {
+//        
+//        CCityOfficalSendPersonDetailModel* detailModel = [[CCityOfficalSendPersonDetailModel alloc]initWithDic:persons[i]];
+//        [_groupItmes addObject:detailModel];
+//    }
     
 }
 

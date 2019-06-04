@@ -205,6 +205,20 @@
 
 - (void)logOut {
     
+    UIAlertController* alterController = [UIAlertController alertControllerWithTitle:@"注销登录" message:@"确认注销？" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self confirmLogout];
+    }];
+    UIAlertAction* cancleAction = [UIAlertAction actionWithTitle:@"点错了" style:UIAlertActionStyleDefault handler:nil];
+    [alterController addAction:cancleAction];
+    [alterController addAction:okAction];
+    
+    [self presentViewController:alterController animated:YES completion:nil];
+
+}
+
+-(void)confirmLogout{
     AFHTTPSessionManager* manager = [CCityJSONNetWorkManager sessionManager];
     
     [GeTuiSdk clearAllNotificationForNotificationBar];

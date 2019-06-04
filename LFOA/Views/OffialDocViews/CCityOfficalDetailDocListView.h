@@ -22,6 +22,5 @@
 @property (nonatomic,weak) id <CCityOfficalDetailDocListViewDelegate> delegate;
 @property(nonatomic, copy)void(^pushToFileViewerVC)(UIViewController* fileViewerVC);
 
-- (instancetype)initWithUrl:(NSString*)url andIds:(NSDictionary*)ids;
-
+- (instancetype)initWithUrl:(NSString*)url andIds:(NSDictionary*)ids contentModel:(CCityOfficalDocContentMode)contentModel;
 @end

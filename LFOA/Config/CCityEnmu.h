@@ -30,7 +30,8 @@ typedef NS_ENUM(NSUInteger, CCityOfficalDocContentMode) {
     
     CCityOfficalDocBackLogMode,
     CCityOfficalDocHaveDoneMode,
-    CCityOfficalDocReciveReadMode
+    CCityOfficalDocReciveReadMode,
+    CCityOfficalDocSearchMode
 };
 
 typedef NS_ENUM(NSUInteger, CCityOfficalMainStyle) {

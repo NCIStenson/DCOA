@@ -36,10 +36,12 @@ static NSString* officalDetailDocListCellReuseId = @"officalDetailDocListCellReu
     
     NSString *  _url;
     NSDictionary *  _ids;
+    
+    CCityOfficalDocContentMode _contentModel;
 
 }
 
-- (instancetype)initWithUrl:(NSString*)url andIds:(NSDictionary*)ids
+- (instancetype)initWithUrl:(NSString*)url andIds:(NSDictionary*)ids contentModel:(CCityOfficalDocContentMode)contentModel
 {
     self = [super init];
     
@@ -47,7 +49,7 @@ static NSString* officalDetailDocListCellReuseId = @"officalDetailDocListCellReu
         _url = url;
         _ids = ids;
         _sectionTitleArr = [NSMutableArray array];
-
+        _contentModel = contentModel;
         [self layoutMySubViews];
         
         [self configDataWithUrl:url andIds:ids];
@@ -220,6 +222,9 @@ static NSString* officalDetailDocListCellReuseId = @"officalDetailDocListCellReu
     [uploadBtn addTarget:self action:@selector(chooseImageToUpload:) forControlEvents:UIControlEventTouchUpInside];
     
     [sectionHeader addSubview:uploadBtn];
+    if (_contentModel != CCityOfficalDocBackLogMode) {
+        uploadBtn.hidden = YES;
+    }
 
     [sectionHeader addSubview:sectionHeader.imageView];
     [sectionHeader addSubview:sectionTitleLabel];

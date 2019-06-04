@@ -249,7 +249,7 @@
     }
     NSString * opinionStr = @"";
     if (_opinionTextView.text.length == 0 || [_opinionTextView.text isEqualToString:textViewStr]) {
-        [SVProgressHUD showErrorWithStatus:@"请填写传阅意见！"];
+        [SVProgressHUD showErrorWithStatus:@"请输入传阅意见！"];
         [SVProgressHUD dismissWithDelay:2];
         return;
     }else{

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface CCityOfficalSendPersonDetailModel : NSObject
+@property(nonatomic, strong)NSArray * childrenArr;
 
 @property(nonatomic, strong)NSString* name;
 @property(nonatomic, strong)NSString* personId;

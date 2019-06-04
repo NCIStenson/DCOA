@@ -67,12 +67,17 @@
         
         _menuView.alpha = 1.f;
         
-        if ( _contentMode == 0) {
-            
+        if ( _contentMode == CCityOfficalDocBackLogMode) {
             menuFrame.size.height = 300;
-        } else {
-            
-            menuFrame.size.height = 250;
+        } else if(_contentMode == CCityOfficalDocHaveDoneMode) {
+            menuFrame.size.height = 100;
+            if (!_isread) {
+                menuFrame.size.height = 150;
+            }
+        }else if(_contentMode == CCityOfficalDocReciveReadMode){
+            menuFrame.size.height = 200;
+        }else{
+            menuFrame.size.height = 100;
         }
         
         _menuView.frame = menuFrame;
@@ -154,7 +159,7 @@
 
     NSArray* viewsArr;
     
-    if ( _contentMode == 0) {
+    if ( _contentMode == CCityOfficalDocBackLogMode) {
         
         CCityOfficalDocNavMenuBtn* goBackBtn = [CCityOfficalDocNavMenuBtn buttonWithType:UIButtonTypeCustom];
         goBackBtn.tag = 1504;
@@ -162,15 +167,14 @@
         [goBackBtn addTarget:self action:@selector(menuBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         [goBackBtn setImage:[UIImage imageNamed:@"ccity_goback_20x20_"] forState:UIControlStateNormal];
         [menuView addSubview:goBackBtn];
-        
-        //        viewsArr = @[goBackBtn, docListBtn, docTreeBtn, docLogBtn];
         viewsArr = @[goBackBtn, docListBtn, docLogBtn,niwenBtn,readBtn,groupReadBtn];
-    } else {
-        
-        //        viewsArr = @[docListBtn, docTreeBtn, docLogBtn];
-        viewsArr = @[docListBtn, docLogBtn,niwenBtn,readBtn,groupReadBtn];
+    } else if(_contentMode == CCityOfficalDocHaveDoneMode){
+        viewsArr = @[docListBtn, docLogBtn];
+    }else if(_contentMode == CCityOfficalDocReciveReadMode ){
+        viewsArr = @[docListBtn, docLogBtn,readBtn,groupReadBtn];
+    }else{
+        viewsArr = @[docListBtn, docLogBtn];
     }
-    
     
     if (!_isread) {
         CCityOfficalDocNavMenuBtn* quhuiBtn = [CCityOfficalDocNavMenuBtn buttonWithType:UIButtonTypeCustom];
@@ -179,9 +183,9 @@
         [quhuiBtn addTarget:self action:@selector(menuBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         [quhuiBtn setImage:[UIImage imageNamed:@"ccity_goback_20x20_"] forState:UIControlStateNormal];
         [menuView addSubview:quhuiBtn];
-        
-        //        viewsArr = @[goBackBtn, docListBtn, docTreeBtn, docLogBtn];
-        viewsArr = @[quhuiBtn, docListBtn, docLogBtn,readBtn,groupReadBtn];
+        if (_contentMode == CCityOfficalDocHaveDoneMode){
+            viewsArr = @[quhuiBtn, docListBtn, docLogBtn];
+        }
     }
     
     

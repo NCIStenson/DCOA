@@ -568,7 +568,7 @@ static NSString* ccityMainTaskSerachResultCellReuseId = @"ccityMainTaskSerachRes
                               @"fk_flow":model.fkFlow,
                               };
         
-        CCityOfficalDocDetailVC* docDetailVC = [[CCityOfficalDocDetailVC alloc]initWithItmes:@[@"表单信息", @"材料清单"] Id:ids contentModel:CCityOfficalDocHaveDoneMode];
+        CCityOfficalDocDetailVC* docDetailVC = [[CCityOfficalDocDetailVC alloc]initWithItmes:@[@"表单信息", @"材料清单"] Id:ids contentModel:CCityOfficalDocSearchMode];
         
         docDetailVC.mainStyle = CCityOfficalMainDocStyle;
         

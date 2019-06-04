@@ -273,7 +273,7 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
 
 -(CCityOfficalDetailDocListView*) fileListView {
     
-    CCityOfficalDetailDocListView* listView = [[CCityOfficalDetailDocListView alloc]initWithUrl:@"service/form/GetMaterialList.ashx" andIds:_docId];
+    CCityOfficalDetailDocListView* listView = [[CCityOfficalDetailDocListView alloc]initWithUrl:@"service/form/GetMaterialList.ashx" andIds:_docId contentModel:_conentMode];
     listView.delegate = self;
     listView.backgroundColor = [UIColor whiteColor];
     
@@ -581,7 +581,7 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
             [self showIsEndFailedAlertVCWithTip:error.localizedDescription];
         }];
     } else {
-        
+        [self saveAction:nil];
         CCityOfficalDetailPsrsonListVC* listVC = [[CCityOfficalDetailPsrsonListVC alloc]initWithIds:_docId];
         listVC.delegate = self;
         [self pushTo:listVC];
@@ -1408,6 +1408,7 @@ static NSString* ccityOfficlaMuLineReuseId  = @"CCityOfficalDetailMutableLineTex
 {
     NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithDictionary:_docId];
     [dic setObject:model.dirName forKey:@"materialFolder"];
+
     CCityUploadFileVC * uploadFileVC = [[CCityUploadFileVC alloc]init];
     uploadFileVC.resultDic = dic;
     [self.navigationController pushViewController:uploadFileVC animated:YES];

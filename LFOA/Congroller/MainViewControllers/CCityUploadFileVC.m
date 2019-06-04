@@ -51,7 +51,6 @@
     UIButton * uploadBtn = [self getBottomBtnWithTitle:@"开始上传" sel:@selector(uploadBtnClick)];
     [self.view addSubview:uploadBtn];
     uploadBtn.frame = CGRectMake(20, SCREEN_HEIGHT - NAV_HEIGHT - 50, SCREEN_WIDTH - 40, 40);
-    
 }
 
 - (UICollectionView*)collectionView {
