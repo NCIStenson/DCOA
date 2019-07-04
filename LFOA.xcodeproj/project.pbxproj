@@ -1366,8 +1366,10 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = F1B4F1561F2B29D700AB8823;
 			productRefGroup = F1B4F1601F2B29D700AB8823 /* Products */;
